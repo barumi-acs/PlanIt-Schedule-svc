@@ -55,7 +55,7 @@ public class GlobalExceptionHandler {
             case C4001 -> HttpStatus.BAD_REQUEST;
             case C4011, C4012 -> HttpStatus.UNAUTHORIZED;
             case C4031, S4031 -> HttpStatus.FORBIDDEN;
-            case C4041 -> HttpStatus.NOT_FOUND;
+            case C4041, S4042 -> HttpStatus.NOT_FOUND;
             case C4051 -> HttpStatus.METHOD_NOT_ALLOWED;
             default -> HttpStatus.INTERNAL_SERVER_ERROR;
         };

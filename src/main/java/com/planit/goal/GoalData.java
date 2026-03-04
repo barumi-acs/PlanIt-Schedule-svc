@@ -1,4 +1,4 @@
-package com.planit.goal.create;
+package com.planit.goal;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
@@ -22,10 +22,10 @@ public class GoalData extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "goals_id")
-    private Long id;
+    private Long goalsId;
 
-    @Column(name = "category_id")
-    private Long categoryId;
+    @Column(name = "list_id")
+    private Long listId;
 
     @Column(nullable = false)
     private String title;

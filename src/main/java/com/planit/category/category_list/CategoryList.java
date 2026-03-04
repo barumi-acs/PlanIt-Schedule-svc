@@ -13,14 +13,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "category_list")
-@SQLDelete(sql = "UPDATE category_list SET deleted_at = CURRENT_TIMESTAMP(6) WHERE id = ?")
+@SQLDelete(sql = "UPDATE category_list SET deleted_at = CURRENT_TIMESTAMP(6) WHERE list_id = ?")
 @SQLRestriction("deleted_at IS NULL")
 public class CategoryList extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "list_id")
-    private Long id;
+    private Long listId;
 
     @Column(nullable = false, unique = true)
     private String name;

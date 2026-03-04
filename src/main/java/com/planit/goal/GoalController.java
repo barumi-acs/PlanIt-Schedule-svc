@@ -1,8 +1,11 @@
-package com.planit.goal.create;
+package com.planit.goal;
 
 import com.planit.global.ApiResponse;
-import com.planit.goal.create.dto.CreateGoalRequest;
-import com.planit.goal.create.dto.GoalResponse;
+import com.planit.goal.dto.CreateGoalRequest;
+import com.planit.goal.dto.GoalDetailResponse;
+import com.planit.goal.dto.GoalResponse;
+import com.planit.goal.dto.UpdateGoalRequest;
+import com.planit.goal.dto.UpdateGoalResponse;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,5 +39,19 @@ public class GoalController {
     public ResponseEntity<ApiResponse<Void>> deleteGoal(@PathVariable Long id) {
         goalService.deleteGoal(id);
         return ResponseEntity.ok(ApiResponse.success(null));
+    }
+
+    // GET /api/v1/schedules/goals/{goalsId} - 목표 단건 조회
+    @GetMapping("/{goalsId}")
+    public ResponseEntity<ApiResponse<GoalDetailResponse>> getGoal(@PathVariable Long goalsId) {
+        return ResponseEntity.ok(ApiResponse.success(goalService.getGoal(goalsId)));
+    }
+
+    // PATCH /api/v1/schedules/goals/{goalsId} - 목표 수정
+    @PatchMapping("/{goalsId}")
+    public ResponseEntity<ApiResponse<UpdateGoalResponse>> updateGoal(
+            @PathVariable Long goalsId,
+            @RequestBody UpdateGoalRequest req) {
+        return ResponseEntity.ok(ApiResponse.success(goalService.updateGoal(goalsId, req)));
     }
 }
