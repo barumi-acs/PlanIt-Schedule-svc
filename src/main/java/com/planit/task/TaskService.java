@@ -3,13 +3,17 @@ package com.planit.task;
 import com.planit.global.CustomException;
 import com.planit.global.ErrorCode;
 import com.planit.grpc.UserServiceGrpcClient;
+import com.planit.task.dto.CompleteTaskResponse;
 import com.planit.task.dto.CreateTaskRequest;
 import com.planit.task.dto.DailyTaskItem;
 import com.planit.task.dto.DailyTaskResponse;
 import com.planit.task.dto.EmojiItem;
 import com.planit.task.dto.FriendTaskItem;
 import com.planit.task.dto.FriendTaskResponse;
+import com.planit.task.dto.PostponeTaskResponse;
 import com.planit.task.dto.TaskResponse;
+import com.planit.task.dto.UpdateTaskRequest;
+import com.planit.task.dto.UpdateTaskResponse;
 import com.planit.task.emoji.TaskEmojiData;
 import com.planit.task.emoji.TaskEmojiRepository;
 import com.planit.weekgoal.WeekGoalRepository;
@@ -185,6 +189,57 @@ public class TaskService {
                 .friendUserId(friendUserId)
                 .targetDate(targetDate)
                 .tasks(items)
+                .build();
+    }
+
+    // 4. 할 일 수정
+    @Transactional
+    public UpdateTaskResponse updateTask(Long taskId, UpdateTaskRequest req) {
+        if (req.getContent() == null || req.getContent().isBlank()) {
+            throw new CustomException(ErrorCode.C4001);
+        }
+        TaskData task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new CustomException(ErrorCode.S4041));
+        task.setContent(req.getContent());
+        return UpdateTaskResponse.builder()
+                .taskId(task.getTaskId())
+                .content(task.getContent())
+                .updatedAt(task.getUpdatedAt())
+                .build();
+    }
+
+    // 5. 할 일 완료 토글
+    @Transactional
+    public CompleteTaskResponse toggleComplete(Long taskId) {
+        TaskData task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new CustomException(ErrorCode.S4041));
+        task.setComplete(!task.isComplete());
+        return CompleteTaskResponse.builder()
+                .taskId(task.getTaskId())
+                .complete(task.isComplete())
+                .updatedAt(task.getUpdatedAt())
+                .build();
+    }
+
+    // 6. 할 일 삭제 (Soft Delete)
+    @Transactional
+    public void deleteTask(Long taskId) {
+        taskRepository.findById(taskId)
+                .orElseThrow(() -> new CustomException(ErrorCode.S4041));
+        taskRepository.deleteById(taskId);
+    }
+
+    // 7. 할 일 미루기 (targetDate +1일)
+    @Transactional
+    public PostponeTaskResponse postponeTask(Long taskId) {
+        TaskData task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new CustomException(ErrorCode.S4041));
+        task.setTargetDate(task.getTargetDate().plusDays(1));
+        return PostponeTaskResponse.builder()
+                .taskId(task.getTaskId())
+                .content(task.getContent())
+                .targetDate(task.getTargetDate())
+                .updatedAt(task.getUpdatedAt())
                 .build();
     }
 
