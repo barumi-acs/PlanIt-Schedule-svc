@@ -2,7 +2,10 @@ package com.planit.weekgoal;
 
 import com.planit.global.CustomException;
 import com.planit.global.ErrorCode;
+import com.planit.goal.GoalData;
 import com.planit.goal.GoalRepository;
+import com.planit.task.TaskData;
+import com.planit.task.TaskRepository;
 import com.planit.weekgoal.dto.CreateWeekGoalRequest;
 import com.planit.weekgoal.dto.UpdateWeekGoalRequest;
 import com.planit.weekgoal.dto.UpdateWeekGoalResponse;
@@ -22,12 +25,13 @@ public class WeekGoalService {
 
     private final WeekGoalRepository weekGoalRepository;
     private final GoalRepository goalRepository;
+    private final TaskRepository taskRepository;
 
     // 1. 주간 목표 생성
     @Transactional
     public WeekGoalResponse createWeekGoal(Long goalsId, CreateWeekGoalRequest req) {
         // 부모 목표 존재 여부 확인
-        goalRepository.findById(goalsId)
+        GoalData goalData = goalRepository.findById(goalsId)
                 .orElseThrow(() -> new CustomException(ErrorCode.S4042));
 
         if (req.getTitle() == null || req.getTitle().isBlank()) {
@@ -35,7 +39,7 @@ public class WeekGoalService {
         }
 
         WeekGoalData weekGoal = new WeekGoalData();
-        weekGoal.setGoalsId(goalsId);
+        weekGoal.setGoal(goalData);
         weekGoal.setTitle(req.getTitle());
         WeekGoalData saved = weekGoalRepository.save(weekGoal);
 
@@ -49,7 +53,7 @@ public class WeekGoalService {
         goalRepository.findById(goalsId)
                 .orElseThrow(() -> new CustomException(ErrorCode.S4042));
 
-        return weekGoalRepository.findByGoalsId(goalsId)
+        return weekGoalRepository.findByGoal_GoalsId(goalsId)
                 .stream()
                 .map(this::toListItem)
                 .collect(Collectors.toList());
@@ -94,7 +98,7 @@ public class WeekGoalService {
     private WeekGoalResponse toResponse(WeekGoalData w) {
         return WeekGoalResponse.builder()
                 .weekGoalsId(w.getWeekGoalsId())
-                .goalsId(w.getGoalsId())
+                .goalsId(w.getGoal().getGoalsId())
                 .title(w.getTitle())
                 .createdAt(w.getCreatedAt())
                 .updatedAt(w.getUpdatedAt())
@@ -103,10 +107,14 @@ public class WeekGoalService {
 
     // WeekGoalData → WeekGoalListItem
     private WeekGoalListItem toListItem(WeekGoalData w) {
+        List<TaskData> tasks = taskRepository.findByWeekGoal_WeekGoalsId(w.getWeekGoalsId());
+        int total = tasks.size();
+        int completed = (int) tasks.stream().filter(TaskData::isComplete).count();
+        int progressRate = total == 0 ? 0 : (completed * 100 / total);
         return WeekGoalListItem.builder()
                 .weekGoalsId(w.getWeekGoalsId())
                 .title(w.getTitle())
-                .progressRate(0) // TODO: 일일 태스크 연동 후 계산
+                .progressRate(progressRate)
                 .createdAt(w.getCreatedAt())
                 .build();
     }

@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface WeekGoalRepository extends JpaRepository<WeekGoalData, Long> {
-    List<WeekGoalData> findByGoalsId(Long goalsId);
+    List<WeekGoalData> findByGoal_GoalsId(Long goalsId);
 }

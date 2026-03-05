@@ -17,6 +17,10 @@ import lombok.Setter;
 @SQLRestriction("deleted_at IS NULL")
 public class CategoryList extends BaseTimeEntity {
 
+    /**
+     * PK: category_list.list_id
+     * - 카테고리 종류의 식별자
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "list_id")

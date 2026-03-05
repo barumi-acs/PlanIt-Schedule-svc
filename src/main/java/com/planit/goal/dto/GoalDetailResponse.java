@@ -24,6 +24,7 @@ public class GoalDetailResponse {
     public static class WeekGoalSummary {
         private Long weekGoalsId;
         private String title;
+        private int progressRate;
         private LocalDateTime createdAt;
     }
 }

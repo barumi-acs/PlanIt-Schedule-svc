@@ -21,16 +21,21 @@ public class GoalController {
     private final GoalService goalService;
 
     // POST /api/v1/schedules/goals - 목표 생성
+    // 임시: JWT 연동 전까지 userId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @PostMapping
-    public ResponseEntity<ApiResponse<GoalResponse>> createGoal(@RequestBody CreateGoalRequest req) {
-        GoalResponse data = goalService.createGoal(req);
+    public ResponseEntity<ApiResponse<GoalResponse>> createGoal(
+            @RequestParam(required = false, defaultValue = "dev-user-001") String userId,
+            @RequestBody CreateGoalRequest req) {
+        GoalResponse data = goalService.createGoal(userId, req);
         return ResponseEntity.ok(ApiResponse.success(data));
     }
 
     // GET /api/v1/schedules/goals - 목표 전체 조회
+    // 임시: JWT 연동 전까지 userId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @GetMapping
-    public ResponseEntity<ApiResponse<List<GoalResponse>>> getGoals() {
-        List<GoalResponse> data = goalService.getGoals();
+    public ResponseEntity<ApiResponse<List<GoalResponse>>> getGoals(
+            @RequestParam(required = false, defaultValue = "dev-user-001") String userId) {
+        List<GoalResponse> data = goalService.getGoals(userId);
         return ResponseEntity.ok(ApiResponse.success(data));
     }
 

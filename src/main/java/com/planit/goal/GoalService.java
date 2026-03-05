@@ -1,5 +1,7 @@
 package com.planit.goal;
 
+import com.planit.category.CategoryData;
+import com.planit.category.CategoryRepository;
 import com.planit.category.category_list.CategoryList;
 import com.planit.category.category_list.CategoryListRepository;
 import com.planit.global.CustomException;
@@ -9,6 +11,8 @@ import com.planit.goal.dto.GoalDetailResponse;
 import com.planit.goal.dto.GoalResponse;
 import com.planit.goal.dto.UpdateGoalRequest;
 import com.planit.goal.dto.UpdateGoalResponse;
+import com.planit.task.TaskData;
+import com.planit.task.TaskRepository;
 import com.planit.weekgoal.WeekGoalRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -25,12 +29,17 @@ import java.util.stream.Collectors;
 public class GoalService {
 
     private final GoalRepository goalRepository;
+    private final CategoryRepository categoryRepository;
     private final CategoryListRepository categoryListRepository;
     private final WeekGoalRepository weekGoalRepository;
+    private final TaskRepository taskRepository;
 
     // 1. 목표 생성
     @Transactional
-    public GoalResponse createGoal(CreateGoalRequest req) {
+    public GoalResponse createGoal(String userId, CreateGoalRequest req) {
+        if (userId == null || userId.isBlank()) {
+            throw new CustomException(ErrorCode.C4001);
+        }
         // 날짜 파싱
         LocalDate start;
         LocalDate end;
@@ -41,17 +50,26 @@ public class GoalService {
             throw new CustomException(ErrorCode.C4001);
         }
 
-        // category_list 테이블에서 이름으로 list_id 조회 (category가 없으면 null 허용)
-        Long listId = null;
-        if (req.getCategory() != null && !req.getCategory().isBlank()) {
-            listId = categoryListRepository.findByName(req.getCategory())
-                    .map(CategoryList::getListId)
-                    .orElseThrow(() -> new CustomException(ErrorCode.C4041));
+        // category_list에서 이름으로 list_id 조회 (final → 람다 캡처 가능)
+        final CategoryList foundCategoryList = (req.getCategory() != null && !req.getCategory().isBlank())
+                ? categoryListRepository.findByName(req.getCategory())
+                        .orElseThrow(() -> new CustomException(ErrorCode.C4041))
+                : null;
+
+        // category 테이블에서 (userId + listId) → category 조회, 없으면 새로 생성
+        CategoryData category = null;
+        if (foundCategoryList != null) {
+            category = categoryRepository.findByUserIdAndCategoryList_ListId(userId, foundCategoryList.getListId())
+                    .orElseGet(() -> {
+                        CategoryData newCategory = new CategoryData();
+                        newCategory.setUserId(userId);
+                        newCategory.setCategoryList(foundCategoryList);
+                        return categoryRepository.save(newCategory);
+                    });
         }
 
-        // DB에 INSERT
         GoalData goal = new GoalData();
-        goal.setListId(listId);
+        goal.setCategory(category);
         goal.setTitle(req.getTitle());
         goal.setStartDate(start);
         goal.setEndDate(end);
@@ -60,21 +78,24 @@ public class GoalService {
         return toResponse(saved);
     }
 
-    // 2. 목표 전체 조회
+    // 2. 목표 전체 조회 (userId 기준으로 필터)
     @Transactional(readOnly = true)
-    public List<GoalResponse> getGoals() {
-        return goalRepository.findAll()
+    public List<GoalResponse> getGoals(String userId) {
+        if (userId == null || userId.isBlank()) {
+            throw new CustomException(ErrorCode.C4001);
+        }
+        return goalRepository.findByUserId(userId)
                 .stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
 
-    // 3. 목표 삭제 (Soft Delete) - @SQLDelete가 가로채서 UPDATE deleted_at 실행
+    // 3. 목표 삭제 (Soft Delete)
     @Transactional
     public void deleteGoal(Long id) {
         goalRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.S4042));
-        goalRepository.deleteById(id); // @SQLDelete 작동 → UPDATE goals SET deleted_at = ... WHERE id = ?
+        goalRepository.deleteById(id);
     }
 
     // 4. 목표 단건 조회
@@ -82,21 +103,35 @@ public class GoalService {
     public GoalDetailResponse getGoal(Long id) {
         GoalData goal = goalRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.S4042));
-        List<GoalDetailResponse.WeekGoalSummary> weekGoalList = weekGoalRepository.findByGoalsId(id)
+
+        List<GoalDetailResponse.WeekGoalSummary> weekGoalList = weekGoalRepository.findByGoal_GoalsId(id)
                 .stream()
-                .map(w -> GoalDetailResponse.WeekGoalSummary.builder()
-                        .weekGoalsId(w.getWeekGoalsId())
-                        .title(w.getTitle())
-                        .createdAt(w.getCreatedAt())
-                        .build())
+                .map(w -> {
+                    List<TaskData> tasks = taskRepository.findByWeekGoal_WeekGoalsId(w.getWeekGoalsId());
+                    int total = tasks.size();
+                    int completed = (int) tasks.stream().filter(TaskData::isComplete).count();
+                    int wProgressRate = total == 0 ? 0 : (completed * 100 / total);
+                    return GoalDetailResponse.WeekGoalSummary.builder()
+                            .weekGoalsId(w.getWeekGoalsId())
+                            .title(w.getTitle())
+                            .progressRate(wProgressRate)
+                            .createdAt(w.getCreatedAt())
+                            .build();
+                })
                 .collect(Collectors.toList());
+
+        int goalProgressRate = weekGoalList.isEmpty() ? 0
+                : (int) weekGoalList.stream()
+                        .mapToInt(GoalDetailResponse.WeekGoalSummary::getProgressRate)
+                        .average()
+                        .orElse(0);
 
         return GoalDetailResponse.builder()
                 .goalsId(goal.getGoalsId())
                 .title(goal.getTitle())
                 .startDate(goal.getStartDate())
                 .endDate(goal.getEndDate())
-                .progressRate(0) // TODO: 주차 목표 연동 후 계산
+                .progressRate(goalProgressRate)
                 .weekGoals(weekGoalList)
                 .createdAt(goal.getCreatedAt())
                 .updatedAt(goal.getUpdatedAt())
@@ -115,7 +150,6 @@ public class GoalService {
         } catch (DateTimeParseException | NullPointerException e) {
             throw new CustomException(ErrorCode.C4001);
         }
-        // dirty checking → 트랜잭션 커밋 시 JPA가 자동 UPDATE
         return UpdateGoalResponse.builder()
                 .goalsId(goal.getGoalsId())
                 .title(goal.getTitle())
@@ -129,7 +163,7 @@ public class GoalService {
     private GoalResponse toResponse(GoalData goal) {
         return GoalResponse.builder()
                 .goalsId(goal.getGoalsId())
-                .listId(goal.getListId())
+                .categoryId(goal.getCategory() != null ? goal.getCategory().getCategoryId() : null)
                 .title(goal.getTitle())
                 .startDate(goal.getStartDate())
                 .endDate(goal.getEndDate())
