@@ -11,18 +11,23 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<TaskData, Long> {
 
-    // weekGoal로 할 일 조회 (진행률 계산용)
-    List<TaskData> findByWeekGoal_WeekGoalsId(Long weekGoalsId);
+        // weekGoal로 할 일 조회 (진행률 계산용)
+        List<TaskData> findByWeekGoal_WeekGoalsId(Long weekGoalsId);
 
-    // 유저의 특정 날짜 할 일 조회
-    // tasks → weekGoal → goal → category JOIN
-    @Query("SELECT t FROM TaskData t " +
-            "JOIN t.weekGoal w " +
-            "JOIN w.goal g " +
-            "JOIN g.category c " +
-            "WHERE c.userId = :userId " +
-            "  AND t.targetDate = :targetDate")
-    List<TaskData> findByUserIdAndTargetDate(
-            @Param("userId") String userId,
-            @Param("targetDate") LocalDate targetDate);
+        // 유저의 특정 날짜 할 일 조회
+        // 목표 있음: tasks → weekGoal → goal → category 체인으로 userId 확인
+        // 목표 없음: tasks.userId 직접 확인
+        @Query("SELECT t FROM TaskData t " +
+                        "LEFT JOIN t.weekGoal w " +
+                        "LEFT JOIN w.goal g " +
+                        "LEFT JOIN g.category c " +
+                        "WHERE t.targetDate = :targetDate " +
+                        "  AND (" +
+                        "    (t.weekGoal IS NOT NULL AND c.userId = :userId) " +
+                        "    OR " +
+                        "    (t.weekGoal IS NULL AND t.userId = :userId)" +
+                        "  )")
+        List<TaskData> findByUserIdAndTargetDate(
+                        @Param("userId") String userId,
+                        @Param("targetDate") LocalDate targetDate);
 }

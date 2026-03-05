@@ -27,8 +27,15 @@ public class TaskController {
     private final EmojiService emojiService;
 
     // POST /api/v1/schedules/tasks - 할 일 등록
+    // 임시: JWT 연동 전까지 userId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @PostMapping
-    public ResponseEntity<ApiResponse<TaskResponse>> createTask(@RequestBody CreateTaskRequest req) {
+    public ResponseEntity<ApiResponse<TaskResponse>> createTask(
+            @RequestParam(required = false, defaultValue = "dev-user-001") String userId,
+            @RequestBody CreateTaskRequest req) {
+        // 목표 없음 할 일인 경우 userId를 req에 주입
+        if (req.getUserId() == null || req.getUserId().isBlank()) {
+            req.setUserId(userId);
+        }
         return ResponseEntity.ok(ApiResponse.success(taskService.createTask(req)));
     }
 
