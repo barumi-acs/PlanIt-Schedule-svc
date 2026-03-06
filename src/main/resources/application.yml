@@ -49,6 +49,14 @@ grpc:
       # User Service의 gRPC 서버 주소 (환경변수로 주입, 기본값: 로컬 테스트용)
       address: ${USER_SERVICE_GRPC_ADDRESS:static://localhost:9090}
       negotiation-type: plaintext  # TLS 미사용 (내부 통신)
+    
+    # UserActionLogGrpcClient의 @GrpcClient("insight-service") 와 이름이 일치해야 함
+    insight-service:
+      # Insight Service의 gRPC 서버 주소 (환경변수로 주입, 기본값: 로컬 테스트용)
+      address: ${INSIGHT_SERVICE_GRPC_ADDRESS:static://localhost:9092}
+      negotiation-type: plaintext  # TLS 미사용 (내부 통신)
+      # 타임아웃 설정 (행동 로그는 빠르게 처리되어야 함)
+      deadline: 3s
 
   # stub-mode: true  → UserServiceGrpcClient가 항상 true 반환 (User Service 미연동 개발용)
   # stub-mode: false → 실제 gRPC 호출 (User Service 서버가 떠있어야 함)

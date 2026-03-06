@@ -3,6 +3,7 @@ package com.planit.task;
 import com.planit.global.CustomException;
 import com.planit.global.ErrorCode;
 import com.planit.grpc.UserServiceGrpcClient;
+import com.planit.grpc.UserActionLogGrpcClient;
 import com.planit.task.dto.CompleteTaskResponse;
 import com.planit.task.dto.CreateTaskRequest;
 import com.planit.task.dto.DailyTaskItem;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +40,7 @@ public class TaskService {
         private final WeekGoalRepository weekGoalRepository;
         private final TaskEmojiRepository taskEmojiRepository;
         private final UserServiceGrpcClient userServiceGrpcClient;
+        private final UserActionLogGrpcClient actionLogGrpcClient;
 
         // 1. 할 일 등록
         @Transactional
@@ -228,7 +231,29 @@ public class TaskService {
         public CompleteTaskResponse toggleComplete(Long taskId) {
                 TaskData task = taskRepository.findById(taskId)
                                 .orElseThrow(() -> new CustomException(ErrorCode.S4041));
+                
+                // 1️⃣ 메인 로직: 완료 상태 토글
+                boolean wasComplete = task.isComplete();
                 task.setComplete(!task.isComplete());
+                
+                // 2️⃣ 비동기 행동 로그 전송 (완료 → 미완료는 로그 안 남김)
+                if (!wasComplete && task.isComplete()) {
+                        // 완료 처리된 경우에만 로그 전송
+                        String userId = extractUserId(task);
+                        Long goalsId = extractGoalsId(task);
+                        
+                        if (userId != null && goalsId != null) {
+                                LocalDateTime actionTime = LocalDateTime.now();
+                                actionLogGrpcClient.recordCompletedAction(
+                                        userId,
+                                        task.getTaskId(),
+                                        goalsId,
+                                        task.getTargetDate(),
+                                        actionTime
+                                );
+                        }
+                }
+                
                 return CompleteTaskResponse.builder()
                                 .taskId(task.getTaskId())
                                 .complete(task.isComplete())
@@ -239,8 +264,25 @@ public class TaskService {
         // 6. 할 일 삭제 (Soft Delete)
         @Transactional
         public void deleteTask(Long taskId) {
-                taskRepository.findById(taskId)
+                TaskData task = taskRepository.findById(taskId)
                                 .orElseThrow(() -> new CustomException(ErrorCode.S4041));
+                
+                // 1️⃣ 비동기 행동 로그 전송 (삭제 전에 데이터 추출)
+                String userId = extractUserId(task);
+                Long goalsId = extractGoalsId(task);
+                
+                if (userId != null && goalsId != null) {
+                        LocalDateTime actionTime = LocalDateTime.now();
+                        actionLogGrpcClient.recordDeletedAction(
+                                userId,
+                                task.getTaskId(),
+                                goalsId,
+                                task.getTargetDate(),
+                                actionTime
+                        );
+                }
+                
+                // 2️⃣ 메인 로직: Soft Delete
                 taskRepository.deleteById(taskId);
         }
 
@@ -249,7 +291,28 @@ public class TaskService {
         public PostponeTaskResponse postponeTask(Long taskId) {
                 TaskData task = taskRepository.findById(taskId)
                                 .orElseThrow(() -> new CustomException(ErrorCode.S4041));
-                task.setTargetDate(task.getTargetDate().plusDays(1));
+                
+                // 1️⃣ 메인 로직: 날짜 +1일
+                LocalDate originalDate = task.getTargetDate();
+                LocalDate postponedDate = originalDate.plusDays(1);
+                task.setTargetDate(postponedDate);
+                
+                // 2️⃣ 비동기 행동 로그 전송
+                String userId = extractUserId(task);
+                Long goalsId = extractGoalsId(task);
+                
+                if (userId != null && goalsId != null) {
+                        LocalDateTime actionTime = LocalDateTime.now();
+                        actionLogGrpcClient.recordPostponedAction(
+                                userId,
+                                task.getTaskId(),
+                                goalsId,
+                                originalDate,
+                                postponedDate,
+                                actionTime
+                        );
+                }
+                
                 return PostponeTaskResponse.builder()
                                 .taskId(task.getTaskId())
                                 .content(task.getContent())
@@ -269,5 +332,32 @@ public class TaskService {
                                 .createdAt(t.getCreatedAt())
                                 .updatedAt(t.getUpdatedAt())
                                 .build();
+        }
+
+        /**
+         * TaskData에서 userId 추출
+         * - 목표 있음: weekGoal → goal → category → userId
+         * - 목표 없음: task.userId 직접 사용
+         */
+        private String extractUserId(TaskData task) {
+                if (task.getWeekGoal() != null) {
+                        // 목표 있음: weekGoal → goal → category → userId
+                        return task.getWeekGoal().getGoal().getCategory().getUserId();
+                } else {
+                        // 목표 없음: task.userId 직접 사용
+                        return task.getUserId();
+                }
+        }
+
+        /**
+         * TaskData에서 goalsId 추출
+         * - 목표 있음: weekGoal → goal → goalsId
+         * - 목표 없음: null (행동 로그 전송 안 함)
+         */
+        private Long extractGoalsId(TaskData task) {
+                if (task.getWeekGoal() != null) {
+                        return task.getWeekGoal().getGoal().getGoalsId();
+                }
+                return null; // 목표 없음 할 일은 행동 로그 안 남김
         }
 }
