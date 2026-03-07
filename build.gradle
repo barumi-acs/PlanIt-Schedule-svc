@@ -74,16 +74,14 @@ sourceSets {
 //     generateProtoTasks { all()*.plugins { grpc {} } }
 // }
 
-// 맥북 실행이 안되서 아키텍쳐 맞는거로 교체
+// Windows 및 범용 아키텍처 지원
 protobuf {
     protoc { 
-        // 맥북(Apple Silicon) 전용 컴파일러 지정
-        artifact = "com.google.protobuf:protoc:3.24.0:osx-aarch_64" 
+        artifact = "com.google.protobuf:protoc:3.24.0"
     }
     plugins { 
         grpc { 
-            // 맥북 전용 gRPC 플러그인 지정
-            artifact = "io.grpc:protoc-gen-grpc-java:1.58.0:osx-aarch_64" 
+            artifact = "io.grpc:protoc-gen-grpc-java:1.58.0"
         } 
     }
     generateProtoTasks { all()*.plugins { grpc {} } }
