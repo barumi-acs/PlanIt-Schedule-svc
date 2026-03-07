@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package com.planit.grpc.schedule;
+
+option java_package = "com.planit.grpc.schedule";
+option java_outer_classname = "ScheduleServiceProto";
+option java_multiple_files = true;
+
+service ScheduleService {
+
+  rpc CreatePlan (CreatePlanRequest) returns (CreatePlanResponse);
+
+}
+
+message CreatePlanRequest {
+
+  string user_id = 1;
+
+  string category_name = 2;
+
+  Goal goal = 3;
+
+}
+
+message Goal {
+
+  string title = 1;
+
+  string start_date = 2;
+
+  string end_date = 3;
+
+  repeated WeekGoal week_goals = 4;
+
+}
+
+message WeekGoal {
+
+  string title = 1;
+
+  repeated Task tasks = 2;
+
+}
+
+message Task {
+
+  string content = 1;
+
+  string target_date = 2;
+
+}
+
+message CreatePlanResponse {
+
+  bool success = 1;
+
+  string message = 2;
+
+}
