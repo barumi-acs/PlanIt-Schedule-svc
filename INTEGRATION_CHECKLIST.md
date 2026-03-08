@@ -235,7 +235,7 @@ curl -X POST http://localhost:8082/api/v1/tasks/123/complete \
 #### 3-3. DB 확인
 ```sql
 -- Insight Service DB
-USE insight_db;
+USE plainit_db;
 SELECT * FROM user_action_logs ORDER BY created_at DESC LIMIT 10;
 
 -- 예상 결과:

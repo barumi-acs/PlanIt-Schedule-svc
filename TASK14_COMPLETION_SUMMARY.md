@@ -174,7 +174,7 @@ cd PlanIt-Schedule-svc
 curl -X POST http://localhost:8082/api/v1/tasks/123/complete
 
 # Terminal 4: DB 확인
-mysql -u root -p insight_db
+mysql -u root -p plainit_db
 SELECT * FROM user_action_logs ORDER BY created_at DESC LIMIT 10;
 ```
 
