@@ -30,7 +30,7 @@ public class TaskController {
     // 임시: JWT 연동 전까지 userId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @PostMapping
     public ResponseEntity<ApiResponse<TaskResponse>> createTask(
-            @RequestParam(required = false, defaultValue = "dev-user-001") String userId,
+            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId,
             @RequestBody CreateTaskRequest req) {
         // 목표 없음 할 일인 경우 userId를 req에 주입
         if (req.getUserId() == null || req.getUserId().isBlank()) {
@@ -40,20 +40,18 @@ public class TaskController {
     }
 
     // GET /api/v1/schedules/tasks/daily - 일간 할 일 조회
-    // 임시: JWT 연동 전까지 myUserId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @GetMapping("/daily")
     public ResponseEntity<ApiResponse<DailyTaskResponse>> getDailyTasks(
-            @RequestParam(required = false, defaultValue = "dev-user-001") String myUserId,
+            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String myUserId,
             @RequestParam(required = false) String targetDate) {
         return ResponseEntity.ok(ApiResponse.success(taskService.getDailyTasks(myUserId, targetDate)));
     }
 
     // GET /api/v1/schedules/tasks/friend/{friendUserId} - 친구의 할 일 조회
-    // 임시: JWT 연동 전까지 myUserId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @GetMapping("/friend/{friendUserId}")
     public ResponseEntity<ApiResponse<FriendTaskResponse>> getFriendTasks(
             @PathVariable String friendUserId,
-            @RequestParam(required = false, defaultValue = "dev-user-001") String myUserId,
+            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String myUserId,
             @RequestParam(required = false) String targetDate) {
         return ResponseEntity.ok(ApiResponse.success(
                 taskService.getFriendTasks(myUserId, friendUserId, targetDate)));
@@ -90,32 +88,29 @@ public class TaskController {
     }
 
     // GET /api/v1/schedules/tasks/{taskId}/emojis - 할 일 이모지 반응 목록 조회 (이모지별 그룹)
-    // 임시: JWT 연동 전까지 userId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @GetMapping("/{taskId}/emojis")
     public ResponseEntity<ApiResponse<TaskReactionListResponse>> getTaskReactions(
             @PathVariable Long taskId,
-            @RequestParam(required = false, defaultValue = "dev-user-001") String userId) {
+            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId) {
         return ResponseEntity.ok(ApiResponse.success(emojiService.getReactions(taskId, userId)));
     }
 
     // POST /api/v1/schedules/tasks/{taskId}/emojis - 이모지 리액션 등록
-    // 임시: JWT 연동 전까지 userId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @PostMapping("/{taskId}/emojis")
     public ResponseEntity<ApiResponse<AddEmojiReactionResponse>> addEmojiReaction(
             @PathVariable Long taskId,
-            @RequestParam(required = false, defaultValue = "dev-user-001") String userId,
+            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId,
             @RequestBody AddEmojiReactionRequest req) {
         return ResponseEntity.ok(ApiResponse.success(
                 emojiService.addReaction(taskId, req, userId)));
     }
 
     // DELETE /api/v1/schedules/tasks/{taskId}/emojis/{emojiId} - 이모지 리액션 삭제
-    // 임시: JWT 연동 전까지 userId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @DeleteMapping("/{taskId}/emojis/{emojiId}")
     public ResponseEntity<ApiResponse<Void>> deleteEmojiReaction(
             @PathVariable Long taskId,
             @PathVariable Long emojiId,
-            @RequestParam(required = false, defaultValue = "dev-user-001") String userId) {
+            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId) {
         emojiService.deleteReaction(taskId, emojiId, userId);
         return ResponseEntity.ok(ApiResponse.success(null));
     }

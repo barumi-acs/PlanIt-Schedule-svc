@@ -458,3 +458,161 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2026-03-08 20:45:51 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
 2026-03-08 20:45:51 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9091
 2026-03-08 20:45:51 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 7.401 seconds (process running for 7.89)
+2026-03-09 14:06:46 INFO  [] [main] com.planit.PlanitApplication : Starting PlanitApplication using Java 17.0.16 with PID 53576 (/Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc/build/classes/java/main started by jybill01 in /Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc)
+2026-03-09 14:06:46 INFO  [] [main] com.planit.PlanitApplication : No active profile set, falling back to 1 default profile: "default"
+2026-03-09 14:06:47 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-09 14:06:48 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 89 ms. Found 7 JPA repository interfaces.
+2026-03-09 14:06:48 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8082 (http)
+2026-03-09 14:06:48 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8082"]
+2026-03-09 14:06:48 INFO  [] [main] o.a.catalina.core.StandardService : Starting service [Tomcat]
+2026-03-09 14:06:48 INFO  [] [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.52]
+2026-03-09 14:06:48 INFO  [] [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2026-03-09 14:06:48 INFO  [] [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1662 ms
+2026-03-09 14:06:48 INFO  [] [main] o.h.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-09 14:06:48 INFO  [] [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 6.6.42.Final
+2026-03-09 14:06:48 INFO  [] [main] o.h.c.i.RegionFactoryInitiator : HHH000026: Second-level cache disabled
+2026-03-09 14:06:48 INFO  [] [main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-09 14:06:48 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2026-03-09 14:06:49 INFO  [] [main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@4cb82b09
+2026-03-09 14:06:49 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
+2026-03-09 14:06:49 INFO  [] [main] o.hibernate.orm.connections.pooling : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 12.2.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-09 14:06:49 INFO  [] [main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-09 14:06:49 INFO  [] [main] o.s.o.j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-09 14:06:49 INFO  [] [main] o.s.d.j.r.query.QueryEnhancerFactory : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-09 14:06:50 INFO  [] [main] n.d.b.g.c.a.GrpcClientAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyChannelFactory + InProcessChannelFactory
+2026-03-09 14:06:50 INFO  [] [main] com.planit.global.AsyncConfig : ActionLog Executor initialized: corePoolSize=2, maxPoolSize=5, queueCapacity=100
+2026-03-09 14:06:50 WARN  [] [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-09 14:06:50 INFO  [] [main] n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+2026-03-09 14:06:50 INFO  [] [main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/api/v1/base/actuator'
+2026-03-09 14:06:50 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8082"]
+2026-03-09 14:06:51 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8082 (http) with context path '/'
+2026-03-09 14:06:51 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: com.planit.grpc.schedule.ScheduleService, bean: scheduleGrpcController, class: com.planit.grpc.ScheduleGrpcController
+2026-03-09 14:06:51 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl
+2026-03-09 14:06:51 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
+2026-03-09 14:06:51 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9091
+2026-03-09 14:06:51 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 4.911 seconds (process running for 5.101)
+2026-03-09 14:07:11 INFO  [] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-09 14:07:11 INFO  [] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2026-03-09 14:07:11 INFO  [] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2026-03-09 14:07:14 INFO  [69ae558283d2bbc0a2660e21347405f7] [http-nio-8082-exec-8] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=6, userId=dev-user-001, goalsId=null, hasWeekGoal=false
+2026-03-09 14:07:14 INFO  [69ae558283d2bbc0a2660e21347405f7] [http-nio-8082-exec-8] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=dev-user-001, taskId=6, goalsId=0 (목표 없음)
+2026-03-09 14:07:15 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=dev-user-001, task=6, goals=0, logId=1
+2026-03-09 14:17:40 INFO  [] [grpc-default-executor-1] c.planit.grpc.ScheduleGrpcController : 📡 gRPC 요청 수신 - userId: test-user, goal: 밥해먹기
+2026-03-09 14:17:40 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : 📡 Strategy에서 실행 계획 수신 및 저장 시작 - userId: test-user
+2026-03-09 14:17:40 WARN  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : ⚠️ 카테고리 'AI 생성 계획'가 존재하지 않아 '기타'를 사용합니다.
+2026-03-09 14:17:40 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : 🎯 Goal 저장 완료: 3
+2026-03-09 14:17:40 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService :   📌 WeekGoal 저장 완료: 3
+2026-03-09 14:17:40 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService :   📌 WeekGoal 저장 완료: 4
+2026-03-09 14:17:40 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : ✅ 모든 계획 데이터 DB 저장 완료
+2026-03-09 14:17:40 INFO  [] [grpc-default-executor-1] c.planit.grpc.ScheduleGrpcController : ✅ gRPC 응답 완료 - success: true
+2026-03-09 14:25:38 INFO  [] [SpringApplicationShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle : Completed gRPC server shutdown
+2026-03-09 14:25:38 INFO  [] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-09 14:25:38 INFO  [] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown : Graceful shutdown complete
+2026-03-09 14:25:38 INFO  [] [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-09 14:25:38 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown initiated...
+2026-03-09 14:25:38 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown completed.
+2026-03-09 14:25:46 INFO  [] [main] com.planit.PlanitApplication : Starting PlanitApplication using Java 17.0.16 with PID 56951 (/Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc/build/classes/java/main started by jybill01 in /Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc)
+2026-03-09 14:25:46 INFO  [] [main] com.planit.PlanitApplication : No active profile set, falling back to 1 default profile: "default"
+2026-03-09 14:25:46 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-09 14:25:46 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 7 JPA repository interfaces.
+2026-03-09 14:25:46 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8082 (http)
+2026-03-09 14:25:46 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8082"]
+2026-03-09 14:25:46 INFO  [] [main] o.a.catalina.core.StandardService : Starting service [Tomcat]
+2026-03-09 14:25:46 INFO  [] [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.52]
+2026-03-09 14:25:46 INFO  [] [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2026-03-09 14:25:46 INFO  [] [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 780 ms
+2026-03-09 14:25:47 INFO  [] [main] o.h.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-09 14:25:47 INFO  [] [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 6.6.42.Final
+2026-03-09 14:25:47 INFO  [] [main] o.h.c.i.RegionFactoryInitiator : HHH000026: Second-level cache disabled
+2026-03-09 14:25:47 INFO  [] [main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-09 14:25:47 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2026-03-09 14:25:47 INFO  [] [main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@21ffc00e
+2026-03-09 14:25:47 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
+2026-03-09 14:25:47 INFO  [] [main] o.hibernate.orm.connections.pooling : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 12.2.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-09 14:25:48 INFO  [] [main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-09 14:25:48 INFO  [] [main] o.s.o.j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-09 14:25:48 INFO  [] [main] o.s.d.j.r.query.QueryEnhancerFactory : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-09 14:25:49 INFO  [] [main] n.d.b.g.c.a.GrpcClientAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyChannelFactory + InProcessChannelFactory
+2026-03-09 14:25:49 INFO  [] [main] com.planit.global.AsyncConfig : ActionLog Executor initialized: corePoolSize=2, maxPoolSize=5, queueCapacity=100
+2026-03-09 14:25:49 WARN  [] [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-09 14:25:49 INFO  [] [main] n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+2026-03-09 14:25:49 INFO  [] [main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/api/v1/base/actuator'
+2026-03-09 14:25:49 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8082"]
+2026-03-09 14:25:49 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8082 (http) with context path '/'
+2026-03-09 14:25:49 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: com.planit.grpc.schedule.ScheduleService, bean: scheduleGrpcController, class: com.planit.grpc.ScheduleGrpcController
+2026-03-09 14:25:49 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl
+2026-03-09 14:25:49 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
+2026-03-09 14:25:49 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9091
+2026-03-09 14:25:49 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 3.887 seconds (process running for 4.134)
+2026-03-09 14:25:52 INFO  [] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-09 14:25:52 INFO  [] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2026-03-09 14:25:52 INFO  [] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet : Completed initialization in 0 ms
+2026-03-09 14:29:11 INFO  [] [SpringApplicationShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle : Completed gRPC server shutdown
+2026-03-09 14:29:11 INFO  [] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-09 14:29:11 INFO  [] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown : Graceful shutdown complete
+2026-03-09 14:29:11 INFO  [] [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-09 14:29:11 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown initiated...
+2026-03-09 14:29:11 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown completed.
+2026-03-09 14:29:20 INFO  [] [main] com.planit.PlanitApplication : Starting PlanitApplication using Java 17.0.16 with PID 57967 (/Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc/build/classes/java/main started by jybill01 in /Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc)
+2026-03-09 14:29:20 INFO  [] [main] com.planit.PlanitApplication : No active profile set, falling back to 1 default profile: "default"
+2026-03-09 14:29:20 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-09 14:29:20 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 7 JPA repository interfaces.
+2026-03-09 14:29:21 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8082 (http)
+2026-03-09 14:29:21 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8082"]
+2026-03-09 14:29:21 INFO  [] [main] o.a.catalina.core.StandardService : Starting service [Tomcat]
+2026-03-09 14:29:21 INFO  [] [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.52]
+2026-03-09 14:29:21 INFO  [] [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2026-03-09 14:29:21 INFO  [] [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 872 ms
+2026-03-09 14:29:21 INFO  [] [main] o.h.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-09 14:29:21 INFO  [] [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 6.6.42.Final
+2026-03-09 14:29:21 INFO  [] [main] o.h.c.i.RegionFactoryInitiator : HHH000026: Second-level cache disabled
+2026-03-09 14:29:21 INFO  [] [main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-09 14:29:21 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2026-03-09 14:29:22 INFO  [] [main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@3883b5e9
+2026-03-09 14:29:22 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
+2026-03-09 14:29:22 INFO  [] [main] o.hibernate.orm.connections.pooling : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 12.2.2
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-09 14:29:22 INFO  [] [main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-09 14:29:22 INFO  [] [main] o.s.o.j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-09 14:29:22 INFO  [] [main] o.s.d.j.r.query.QueryEnhancerFactory : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-09 14:29:23 INFO  [] [main] n.d.b.g.c.a.GrpcClientAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyChannelFactory + InProcessChannelFactory
+2026-03-09 14:29:23 INFO  [] [main] com.planit.global.AsyncConfig : ActionLog Executor initialized: corePoolSize=2, maxPoolSize=5, queueCapacity=100
+2026-03-09 14:29:23 WARN  [] [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-09 14:29:23 INFO  [] [main] n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+2026-03-09 14:29:23 INFO  [] [main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/api/v1/base/actuator'
+2026-03-09 14:29:23 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8082"]
+2026-03-09 14:29:23 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8082 (http) with context path '/'
+2026-03-09 14:29:23 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: com.planit.grpc.schedule.ScheduleService, bean: scheduleGrpcController, class: com.planit.grpc.ScheduleGrpcController
+2026-03-09 14:29:23 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl
+2026-03-09 14:29:23 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
+2026-03-09 14:29:23 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9091
+2026-03-09 14:29:23 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 4.072 seconds (process running for 4.293)
+2026-03-09 14:29:29 INFO  [] [http-nio-8082-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-09 14:29:29 INFO  [] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2026-03-09 14:29:29 INFO  [] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet : Completed initialization in 4 ms
+2026-03-09 14:30:14 INFO  [] [SpringApplicationShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle : Completed gRPC server shutdown
+2026-03-09 14:30:14 INFO  [] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-09 14:30:14 INFO  [] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown : Graceful shutdown complete
+2026-03-09 14:30:14 INFO  [] [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-09 14:30:14 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown initiated...
+2026-03-09 14:30:14 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown completed.

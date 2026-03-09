@@ -10,7 +10,7 @@ spring:
   
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:mariadb://localhost:3306/base_db}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mariadb://localhost:3306/planit_schedule_db}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:root}
 
@@ -18,7 +18,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-      ddl-auto: create #update
+      ddl-auto: update #update
     show-sql: true
     defer-datasource-initialization: true  # data.sql을 Hibernate DDL 이후에 실행
 

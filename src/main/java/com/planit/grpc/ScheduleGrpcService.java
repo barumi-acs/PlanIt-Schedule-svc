@@ -1,62 +1,100 @@
 package com.planit.grpc;
 
+import com.planit.category.CategoryData;
+import com.planit.category.CategoryRepository;
+import com.planit.category.category_list.CategoryList;
+import com.planit.category.category_list.CategoryListRepository;
+import com.planit.goal.GoalData;
+import com.planit.goal.GoalRepository;
 import com.planit.grpc.schedule.CreatePlanRequest;
 import com.planit.grpc.schedule.Task;
 import com.planit.grpc.schedule.WeekGoal;
+import com.planit.task.TaskData;
+import com.planit.task.TaskRepository;
+import com.planit.weekgoal.WeekGoalData;
+import com.planit.weekgoal.WeekGoalRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 
 /**
- * gRPC로 받은 계획 데이터를 처리하는 서비스
- * 
- * <p>
- * <b>현재 역할:</b>
- * - Strategy Service로부터 gRPC 요청 수신
- * - 요청 데이터를 로그로 출력
- * - DB 저장 없이 수신 확인만 수행
- * 
- * <p>
- * <b>향후 확장:</b>
- * - DB 저장 로직은 필요 시 추가 예정
+ * gRPC로 받은 계획 데이터를 처리하고 DB에 저장하는 서비스
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ScheduleGrpcService {
 
+    private final CategoryListRepository categoryListRepository;
+    private final CategoryRepository categoryRepository;
+    private final GoalRepository goalRepository;
+    private final WeekGoalRepository weekGoalRepository;
+    private final TaskRepository taskRepository;
+
     /**
-     * gRPC로 받은 계획 데이터를 로그로 출력
+     * gRPC로 받은 계획 데이터를 DB에 물리적으로 저장
      * 
      * @param request Strategy Service에서 받은 CreatePlanRequest
      */
+    @Transactional
     public void createPlan(CreatePlanRequest request) {
-        log.info("📡 Strategy에서 실행 계획 수신");
-        log.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        log.info("👤 userId: {}", request.getUserId());
-        log.info("📂 category: {}", request.getCategoryName());
-        log.info("🎯 goal: {}", request.getGoal().getTitle());
-        log.info("📅 period: {} ~ {}", request.getGoal().getStartDate(), request.getGoal().getEndDate());
-        log.info("📊 week_goals count: {}", request.getGoal().getWeekGoalsCount());
-        log.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        log.info("📡 Strategy에서 실행 계획 수신 및 저장 시작 - userId: {}", request.getUserId());
 
-        // 주차별 목표 및 할 일 출력
-        int weekIndex = 1;
-        for (WeekGoal weekGoal : request.getGoal().getWeekGoalsList()) {
-            log.info("  📌 Week {}: {}", weekIndex, weekGoal.getTitle());
-            
-            int taskIndex = 1;
-            for (Task task : weekGoal.getTasksList()) {
-                log.info("    ✓ Task {}: {} | targetDate: {}", 
-                         taskIndex, task.getContent(), task.getTargetDate());
-                taskIndex++;
+        // 1. Category 확인 및 생성
+        CategoryData category = getOrCreateCategory(request.getUserId(), request.getCategoryName());
+
+        // 2. Goal 저장
+        GoalData goal = new GoalData();
+        goal.setCategory(category);
+        goal.setTitle(request.getGoal().getTitle());
+        goal.setStartDate(LocalDate.parse(request.getGoal().getStartDate()));
+        goal.setEndDate(LocalDate.parse(request.getGoal().getEndDate()));
+        goal = goalRepository.save(goal);
+        log.info("🎯 Goal 저장 완료: {}", goal.getGoalsId());
+
+        // 3. WeekGoal 및 Task 저장
+        for (WeekGoal weekGoalDto : request.getGoal().getWeekGoalsList()) {
+            WeekGoalData weekGoal = new WeekGoalData();
+            weekGoal.setGoal(goal);
+            weekGoal.setTitle(weekGoalDto.getTitle());
+            weekGoal = weekGoalRepository.save(weekGoal);
+            log.info("  📌 WeekGoal 저장 완료: {}", weekGoal.getWeekGoalsId());
+
+            for (Task taskDto : weekGoalDto.getTasksList()) {
+                TaskData task = new TaskData();
+                task.setWeekGoal(weekGoal);
+                task.setContent(taskDto.getContent());
+                task.setTargetDate(LocalDate.parse(taskDto.getTargetDate()));
+                task.setComplete(false);
+                taskRepository.save(task);
             }
-            
-            weekIndex++;
         }
-        
-        log.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        log.info("✅ 계획 수신 완료");
+
+        log.info("✅ 모든 계획 데이터 DB 저장 완료");
+    }
+
+    /**
+     * 유저의 카테고리를 조회하거나 없으면 새로 생성
+     */
+    private CategoryData getOrCreateCategory(String userId, String categoryName) {
+        CategoryList categoryList = categoryListRepository.findByName(categoryName)
+                .orElseGet(() -> {
+                    log.warn("⚠️ 카테고리 '{}'가 존재하지 않아 '기타'를 사용합니다.", categoryName);
+                    return categoryListRepository.findByName("기타")
+                            .orElseThrow(() -> new RuntimeException("Default category '기타' not found"));
+                });
+
+        return categoryRepository.findByUserIdAndCategoryList_ListId(userId, categoryList.getListId())
+                .orElseGet(() -> {
+                    log.info("📂 유저({})의 새로운 카테고리 '{}' 생성", userId, categoryName);
+                    CategoryData newCategory = new CategoryData();
+                    newCategory.setUserId(userId);
+                    newCategory.setCategoryList(categoryList);
+                    return categoryRepository.save(newCategory);
+                });
     }
 }
