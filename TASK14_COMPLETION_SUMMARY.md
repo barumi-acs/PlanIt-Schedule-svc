@@ -43,7 +43,7 @@
 - Entity: `UserActionLog.java`
 - Repository: `UserActionLogRepository.java`
 - gRPC Service: `ActionLogServiceImpl.java`
-- application.yml 설정 (포트 9092)
+- application.yml 설정 (포트 9094)
 
 ## 🎯 핵심 아키텍처 결정
 
@@ -117,7 +117,7 @@ grpc:
     port: 9091  # Schedule Service 자신의 gRPC 서버
   client:
     insight-service:
-      address: static://localhost:9092
+      address: static://localhost:9094
       negotiation-type: plaintext
       deadline: 3s
 ```
@@ -126,7 +126,7 @@ grpc:
 ```yaml
 grpc:
   server:
-    port: 9092  # Insight Service 자신의 gRPC 서버
+    port: 9094  # Insight Service 자신의 gRPC 서버
 ```
 
 ## 🚀 다음 단계 (Insight Service 구현)
@@ -150,7 +150,7 @@ PlanIt-Insight-svc/src/main/java/com/planit/analytics/grpc/ActionLogServiceImpl.
 ```yaml
 grpc:
   server:
-    port: 9092
+    port: 9094
 ```
 
 ### 5. 빌드 및 실행
@@ -174,7 +174,7 @@ cd PlanIt-Schedule-svc
 curl -X POST http://localhost:8082/api/v1/tasks/123/complete
 
 # Terminal 4: DB 확인
-mysql -u root -p plainit_db
+mysql -u root -p planit_insight_db
 SELECT * FROM user_action_logs ORDER BY created_at DESC LIMIT 10;
 ```
 
