@@ -21,6 +21,7 @@ import com.planit.weekgoal.WeekGoalRepository;
 import com.planit.weekgoal.WeekGoalData;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TaskService {
@@ -229,7 +231,8 @@ public class TaskService {
         // 5. 할 일 완료 토글
         @Transactional
         public CompleteTaskResponse toggleComplete(Long taskId) {
-                TaskData task = taskRepository.findById(taskId)
+                // LAZY 로딩 문제 방지: weekGoal → goal → category까지 fetch join
+                TaskData task = taskRepository.findByIdWithWeekGoal(taskId)
                                 .orElseThrow(() -> new CustomException(ErrorCode.S4041));
                 
                 // 1️⃣ 메인 로직: 완료 상태 토글
@@ -242,15 +245,26 @@ public class TaskService {
                         String userId = extractUserId(task);
                         Long goalsId = extractGoalsId(task);
                         
-                        if (userId != null && goalsId != null) {
+                        log.info("[TaskService] toggleComplete: taskId={}, userId={}, goalsId={}, hasWeekGoal={}",
+                                taskId, userId, goalsId, task.getWeekGoal() != null);
+                        
+                        if (userId != null) {
+                                // 목표 없음 할 일은 goalsId를 0으로 전송
+                                Long finalGoalsId = (goalsId != null) ? goalsId : 0L;
                                 LocalDateTime actionTime = LocalDateTime.now();
+                                
+                                log.info("[TaskService] Sending ActionLog: userId={}, taskId={}, goalsId={} (목표 {})",
+                                        userId, taskId, finalGoalsId, goalsId != null ? "있음" : "없음");
+                                
                                 actionLogGrpcClient.recordCompletedAction(
                                         userId,
                                         task.getTaskId(),
-                                        goalsId,
+                                        finalGoalsId,
                                         task.getTargetDate(),
                                         actionTime
                                 );
+                        } else {
+                                log.error("[TaskService] Skipping ActionLog: userId is null! taskId={}", taskId);
                         }
                 }
                 
@@ -264,19 +278,23 @@ public class TaskService {
         // 6. 할 일 삭제 (Soft Delete)
         @Transactional
         public void deleteTask(Long taskId) {
-                TaskData task = taskRepository.findById(taskId)
+                // LAZY 로딩 문제 방지: weekGoal → goal → category까지 fetch join
+                TaskData task = taskRepository.findByIdWithWeekGoal(taskId)
                                 .orElseThrow(() -> new CustomException(ErrorCode.S4041));
                 
                 // 1️⃣ 비동기 행동 로그 전송 (삭제 전에 데이터 추출)
                 String userId = extractUserId(task);
                 Long goalsId = extractGoalsId(task);
                 
-                if (userId != null && goalsId != null) {
+                if (userId != null) {
+                        // 목표 없음 할 일은 goalsId를 0으로 전송
+                        Long finalGoalsId = (goalsId != null) ? goalsId : 0L;
                         LocalDateTime actionTime = LocalDateTime.now();
+                        
                         actionLogGrpcClient.recordDeletedAction(
                                 userId,
                                 task.getTaskId(),
-                                goalsId,
+                                finalGoalsId,
                                 task.getTargetDate(),
                                 actionTime
                         );
@@ -289,7 +307,8 @@ public class TaskService {
         // 7. 할 일 미루기 (targetDate +1일)
         @Transactional
         public PostponeTaskResponse postponeTask(Long taskId) {
-                TaskData task = taskRepository.findById(taskId)
+                // LAZY 로딩 문제 방지: weekGoal → goal → category까지 fetch join
+                TaskData task = taskRepository.findByIdWithWeekGoal(taskId)
                                 .orElseThrow(() -> new CustomException(ErrorCode.S4041));
                 
                 // 1️⃣ 메인 로직: 날짜 +1일
@@ -301,12 +320,15 @@ public class TaskService {
                 String userId = extractUserId(task);
                 Long goalsId = extractGoalsId(task);
                 
-                if (userId != null && goalsId != null) {
+                if (userId != null) {
+                        // 목표 없음 할 일은 goalsId를 0으로 전송
+                        Long finalGoalsId = (goalsId != null) ? goalsId : 0L;
                         LocalDateTime actionTime = LocalDateTime.now();
+                        
                         actionLogGrpcClient.recordPostponedAction(
                                 userId,
                                 task.getTaskId(),
-                                goalsId,
+                                finalGoalsId,
                                 originalDate,
                                 postponedDate,
                                 actionTime
@@ -340,24 +362,49 @@ public class TaskService {
          * - 목표 없음: task.userId 직접 사용
          */
         private String extractUserId(TaskData task) {
-                if (task.getWeekGoal() != null) {
-                        // 목표 있음: weekGoal → goal → category → userId
-                        return task.getWeekGoal().getGoal().getCategory().getUserId();
-                } else {
-                        // 목표 없음: task.userId 직접 사용
-                        return task.getUserId();
+                try {
+                        if (task.getWeekGoal() != null) {
+                                // 목표 있음: weekGoal → goal → category → userId
+                                // LAZY 로딩 강제 실행
+                                WeekGoalData weekGoal = task.getWeekGoal();
+                                if (weekGoal.getGoal() != null && 
+                                    weekGoal.getGoal().getCategory() != null) {
+                                        return weekGoal.getGoal().getCategory().getUserId();
+                                }
+                                log.warn("[TaskService] extractUserId: weekGoal exists but goal/category is null, taskId={}",
+                                        task.getTaskId());
+                                return null;
+                        } else {
+                                // 목표 없음: task.userId 직접 사용
+                                return task.getUserId();
+                        }
+                } catch (Exception e) {
+                        log.error("[TaskService] extractUserId failed: taskId={}", task.getTaskId(), e);
+                        return null;
                 }
         }
 
         /**
          * TaskData에서 goalsId 추출
          * - 목표 있음: weekGoal → goal → goalsId
-         * - 목표 없음: null (행동 로그 전송 안 함)
+         * - 목표 없음: null (호출하는 쪽에서 0으로 변환하여 전송)
          */
         private Long extractGoalsId(TaskData task) {
-                if (task.getWeekGoal() != null) {
-                        return task.getWeekGoal().getGoal().getGoalsId();
+                try {
+                        if (task.getWeekGoal() != null) {
+                                // LAZY 로딩 강제 실행
+                                WeekGoalData weekGoal = task.getWeekGoal();
+                                if (weekGoal.getGoal() != null) {
+                                        return weekGoal.getGoal().getGoalsId();
+                                }
+                                log.warn("[TaskService] extractGoalsId: weekGoal exists but goal is null, taskId={}",
+                                        task.getTaskId());
+                                return null;
+                        }
+                        return null; // 목표 없음 할 일
+                } catch (Exception e) {
+                        log.error("[TaskService] extractGoalsId failed: taskId={}", task.getTaskId(), e);
+                        return null;
                 }
-                return null; // 목표 없음 할 일은 행동 로그 안 남김
         }
 }

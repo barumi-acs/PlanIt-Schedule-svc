@@ -5,6 +5,7 @@ plugins {
 	id 'org.springframework.boot' version '3.5.11'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'com.google.protobuf' version '0.9.4'
+	id 'com.google.osdetector' version '1.7.3'
 }
 
 group = 'com.planit'
@@ -74,14 +75,14 @@ sourceSets {
 //     generateProtoTasks { all()*.plugins { grpc {} } }
 // }
 
-// Windows 및 범용 아키텍처 지원
+// Cross-Platform Protobuf 컴파일 설정 (OS 자동 감지)
 protobuf {
     protoc { 
-        artifact = "com.google.protobuf:protoc:3.24.0"
+        artifact = "com.google.protobuf:protoc:3.24.0:${osdetector.classifier}"
     }
     plugins { 
         grpc { 
-            artifact = "io.grpc:protoc-gen-grpc-java:1.58.0"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.58.0:${osdetector.classifier}"
         } 
     }
     generateProtoTasks { all()*.plugins { grpc {} } }

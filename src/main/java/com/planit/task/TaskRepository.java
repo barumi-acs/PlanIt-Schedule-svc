@@ -30,4 +30,12 @@ public interface TaskRepository extends JpaRepository<TaskData, Long> {
         List<TaskData> findByUserIdAndTargetDate(
                         @Param("userId") String userId,
                         @Param("targetDate") LocalDate targetDate);
+
+        // taskId로 할 일 조회 (ActionLog 전송을 위해 weekGoal → goal → category까지 fetch join)
+        @Query("SELECT t FROM TaskData t " +
+                        "LEFT JOIN FETCH t.weekGoal w " +
+                        "LEFT JOIN FETCH w.goal g " +
+                        "LEFT JOIN FETCH g.category c " +
+                        "WHERE t.taskId = :taskId")
+        java.util.Optional<TaskData> findByIdWithWeekGoal(@Param("taskId") Long taskId);
 }
