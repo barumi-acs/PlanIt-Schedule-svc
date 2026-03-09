@@ -14,6 +14,7 @@ public class TaskResponse {
     private Long weekGoalsId;
     private String content;
     private boolean complete;
+    private String category;
     private LocalDate targetDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

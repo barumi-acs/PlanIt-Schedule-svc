@@ -39,18 +39,15 @@ public class TaskData extends BaseTimeEntity {
     @Column(name = "task_id")
     private Long taskId;
 
+    /** FK → category.category_id (이 연결로 user_id 추적) */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private com.planit.category.CategoryData category;
+
     /** FK → week_goals.week_goals_id (목표 없음 할 일에서는 null) */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "week_goals_id", nullable = true)
     private WeekGoalData weekGoal;
-
-    /** 목표 없음 할 일의 소유자 userId (weekGoal이 null일 때 사용) */
-    @Column(name = "user_id")
-    private String userId;
-
-    /** 화면 표시용 카테고리 (목표 없음 할 일에서 사용; 목표 있음은 weekGoal.title) */
-    @Column(name = "category")
-    private String category;
 
     @Column(nullable = false)
     private String content;

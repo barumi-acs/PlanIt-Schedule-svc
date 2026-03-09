@@ -70,6 +70,8 @@ public class ScheduleGrpcService {
                 task.setContent(taskDto.getContent());
                 task.setTargetDate(LocalDate.parse(taskDto.getTargetDate()));
                 task.setComplete(false);
+                // 🎯 정규화된 설계 적용: Task는 Category를 직접 가짐 (Category가 userId 보유)
+                task.setCategory(category);
                 taskRepository.save(task);
             }
         }

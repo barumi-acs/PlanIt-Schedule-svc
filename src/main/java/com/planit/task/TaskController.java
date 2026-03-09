@@ -26,32 +26,30 @@ public class TaskController {
     private final TaskService taskService;
     private final EmojiService emojiService;
 
-    // POST /api/v1/schedules/tasks - 할 일 등록
-    // 임시: JWT 연동 전까지 userId를 Query Param으로 전달 (없으면 dev-user-001 기본값)
     @PostMapping
     public ResponseEntity<ApiResponse<TaskResponse>> createTask(
-            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId,
+            @RequestHeader(name = "X-User-Id", required = false) String userId,
             @RequestBody CreateTaskRequest req) {
-        // 목표 없음 할 일인 경우 userId를 req에 주입
+        String finalUserId = (userId != null) ? userId : "unknown-user";
         if (req.getUserId() == null || req.getUserId().isBlank()) {
-            req.setUserId(userId);
+            req.setUserId(finalUserId);
         }
         return ResponseEntity.ok(ApiResponse.success(taskService.createTask(req)));
     }
 
-    // GET /api/v1/schedules/tasks/daily - 일간 할 일 조회
     @GetMapping("/daily")
     public ResponseEntity<ApiResponse<DailyTaskResponse>> getDailyTasks(
-            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String myUserId,
+            @RequestHeader(name = "X-User-Id", required = false) String myUserId,
             @RequestParam(required = false) String targetDate) {
-        return ResponseEntity.ok(ApiResponse.success(taskService.getDailyTasks(myUserId, targetDate)));
+        String finalUserId = (myUserId != null) ? myUserId : "unknown-user";
+        return ResponseEntity.ok(ApiResponse.success(taskService.getDailyTasks(finalUserId, targetDate)));
     }
 
     // GET /api/v1/schedules/tasks/friend/{friendUserId} - 친구의 할 일 조회
     @GetMapping("/friend/{friendUserId}")
     public ResponseEntity<ApiResponse<FriendTaskResponse>> getFriendTasks(
             @PathVariable String friendUserId,
-            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String myUserId,
+            @RequestHeader(name = "X-User-Id") String myUserId,
             @RequestParam(required = false) String targetDate) {
         return ResponseEntity.ok(ApiResponse.success(
                 taskService.getFriendTasks(myUserId, friendUserId, targetDate)));
@@ -91,7 +89,7 @@ public class TaskController {
     @GetMapping("/{taskId}/emojis")
     public ResponseEntity<ApiResponse<TaskReactionListResponse>> getTaskReactions(
             @PathVariable Long taskId,
-            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId) {
+            @RequestHeader(name = "X-User-Id") String userId) {
         return ResponseEntity.ok(ApiResponse.success(emojiService.getReactions(taskId, userId)));
     }
 
@@ -99,7 +97,7 @@ public class TaskController {
     @PostMapping("/{taskId}/emojis")
     public ResponseEntity<ApiResponse<AddEmojiReactionResponse>> addEmojiReaction(
             @PathVariable Long taskId,
-            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId,
+            @RequestHeader(name = "X-User-Id") String userId,
             @RequestBody AddEmojiReactionRequest req) {
         return ResponseEntity.ok(ApiResponse.success(
                 emojiService.addReaction(taskId, req, userId)));
@@ -110,7 +108,7 @@ public class TaskController {
     public ResponseEntity<ApiResponse<Void>> deleteEmojiReaction(
             @PathVariable Long taskId,
             @PathVariable Long emojiId,
-            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId) {
+            @RequestHeader(name = "X-User-Id") String userId) {
         emojiService.deleteReaction(taskId, emojiId, userId);
         return ResponseEntity.ok(ApiResponse.success(null));
     }

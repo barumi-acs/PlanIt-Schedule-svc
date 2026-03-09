@@ -23,17 +23,19 @@ public class GoalController {
     // POST /api/v1/schedules/goals - 목표 생성
     @PostMapping
     public ResponseEntity<ApiResponse<GoalResponse>> createGoal(
-            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId,
+            @RequestHeader(name = "X-User-Id", required = false) String userId,
             @RequestBody CreateGoalRequest req) {
-        GoalResponse data = goalService.createGoal(userId, req);
+        String finalUserId = (userId != null) ? userId : "unknown-user";
+        GoalResponse data = goalService.createGoal(finalUserId, req);
         return ResponseEntity.ok(ApiResponse.success(data));
     }
 
     // GET /api/v1/schedules/goals - 목표 전체 조회
     @GetMapping
     public ResponseEntity<ApiResponse<List<GoalResponse>>> getGoals(
-            @RequestHeader(name = "X-User-Id", required = false, defaultValue = "test-user") String userId) {
-        List<GoalResponse> data = goalService.getGoals(userId);
+            @RequestHeader(name = "X-User-Id", required = false) String userId) {
+        String finalUserId = (userId != null) ? userId : "unknown-user";
+        List<GoalResponse> data = goalService.getGoals(finalUserId);
         return ResponseEntity.ok(ApiResponse.success(data));
     }
 

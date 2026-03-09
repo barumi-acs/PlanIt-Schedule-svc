@@ -19,6 +19,8 @@ import com.planit.task.emoji.TaskEmojiData;
 import com.planit.task.emoji.TaskEmojiRepository;
 import com.planit.weekgoal.WeekGoalRepository;
 import com.planit.weekgoal.WeekGoalData;
+import com.planit.category.CategoryRepository;
+import com.planit.category.category_list.CategoryListRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +43,8 @@ public class TaskService {
         private final TaskRepository taskRepository;
         private final WeekGoalRepository weekGoalRepository;
         private final TaskEmojiRepository taskEmojiRepository;
+        private final CategoryRepository categoryRepository;
+        private final CategoryListRepository categoryListRepository;
         private final UserServiceGrpcClient userServiceGrpcClient;
         private final UserActionLogGrpcClient actionLogGrpcClient;
 
@@ -64,19 +68,24 @@ public class TaskService {
                 task.setContent(req.getContent());
                 task.setTargetDate(targetDate);
 
+                // 유저 식별자 확인
+                String userId = req.getUserId();
+                if (userId == null || userId.isBlank()) {
+                        throw new CustomException(ErrorCode.C4001);
+                }
+
                 if (req.getWeekGoalsId() != null) {
                         // 목표 있음: weekGoal FK 설정
                         WeekGoalData weekGoal = weekGoalRepository.findById(req.getWeekGoalsId())
                                         .orElseThrow(() -> new CustomException(ErrorCode.C4001));
                         task.setWeekGoal(weekGoal);
-                        task.setCategory(weekGoal.getTitle()); // 주간 목표 제목을 카테고리로 저장
+                        // 목표의 카테고리 그대로 사용
+                        task.setCategory(weekGoal.getGoal().getCategory());
                 } else {
-                        // 목표 없음: userId 직접 저장
-                        if (req.getUserId() == null || req.getUserId().isBlank()) {
-                                throw new CustomException(ErrorCode.C4001);
-                        }
-                        task.setUserId(req.getUserId());
-                        task.setCategory(req.getCategory()); // FE에서 전달한 카테고리 저장
+                        // 목표 없음: 전달된 카테고리 이름으로 CategoryData 조회/생성 필요
+                        String categoryName = req.getCategory() != null ? req.getCategory() : "기타";
+                        com.planit.category.CategoryData category = getOrCreateCategory(userId, categoryName);
+                        task.setCategory(category);
                 }
 
                 TaskData saved = taskRepository.save(task);
@@ -106,8 +115,6 @@ public class TaskService {
                 int completedCount = (int) tasks.stream().filter(TaskData::isComplete).count();
                 int progressRate = totalCount == 0 ? 0 : (completedCount * 100 / totalCount);
 
-                // @Transactional 안에서 LAZY 로딩 → 1차 캐시로 동일 weekGoal은 1번만 조회
-                // weekGoal이 null인 경우(목표 없음 할 일)도 안전하게 처리
                 List<DailyTaskItem> items = tasks.stream()
                                 .map(t -> DailyTaskItem.builder()
                                                 .taskId(t.getTaskId())
@@ -115,7 +122,7 @@ public class TaskService {
                                                                 : null)
                                                 .weekGoalsTitle(t.getWeekGoal() != null ? t.getWeekGoal().getTitle()
                                                                 : null)
-                                                .category(t.getCategory())
+                                                .category(t.getCategory().getCategoryList().getName())
                                                 .content(t.getContent())
                                                 .complete(t.isComplete())
                                                 .targetDate(t.getTargetDate())
@@ -350,6 +357,7 @@ public class TaskService {
                                 .weekGoalsId(t.getWeekGoal() != null ? t.getWeekGoal().getWeekGoalsId() : null)
                                 .content(t.getContent())
                                 .complete(t.isComplete())
+                                .category(t.getCategory().getCategoryList().getName())
                                 .targetDate(t.getTargetDate())
                                 .createdAt(t.getCreatedAt())
                                 .updatedAt(t.getUpdatedAt())
@@ -357,27 +365,32 @@ public class TaskService {
         }
 
         /**
+         * 유저의 카테고리를 조회하거나 없으면 새로 생성
+         */
+        private com.planit.category.CategoryData getOrCreateCategory(String userId, String categoryName) {
+                com.planit.category.category_list.CategoryList categoryList = categoryListRepository.findByName(categoryName)
+                                .orElseGet(() -> {
+                                        log.warn("⚠️ 카테고리 '{}'가 존재하지 않아 '기타'를 사용합니다.", categoryName);
+                                        return categoryListRepository.findByName("기타")
+                                                        .orElseThrow(() -> new CustomException(ErrorCode.C4041));
+                                });
+
+                return categoryRepository.findByUserIdAndCategoryList_ListId(userId, categoryList.getListId())
+                                .orElseGet(() -> {
+                                        log.info("📂 유저({})의 새로운 카테고리 '{}' 생성", userId, categoryName);
+                                        com.planit.category.CategoryData newCategory = new com.planit.category.CategoryData();
+                                        newCategory.setUserId(userId);
+                                        newCategory.setCategoryList(categoryList);
+                                        return categoryRepository.save(newCategory);
+                                });
+        }
+
+        /**
          * TaskData에서 userId 추출
-         * - 목표 있음: weekGoal → goal → category → userId
-         * - 목표 없음: task.userId 직접 사용
          */
         private String extractUserId(TaskData task) {
                 try {
-                        if (task.getWeekGoal() != null) {
-                                // 목표 있음: weekGoal → goal → category → userId
-                                // LAZY 로딩 강제 실행
-                                WeekGoalData weekGoal = task.getWeekGoal();
-                                if (weekGoal.getGoal() != null && 
-                                    weekGoal.getGoal().getCategory() != null) {
-                                        return weekGoal.getGoal().getCategory().getUserId();
-                                }
-                                log.warn("[TaskService] extractUserId: weekGoal exists but goal/category is null, taskId={}",
-                                        task.getTaskId());
-                                return null;
-                        } else {
-                                // 목표 없음: task.userId 직접 사용
-                                return task.getUserId();
-                        }
+                        return task.getCategory().getUserId();
                 } catch (Exception e) {
                         log.error("[TaskService] extractUserId failed: taskId={}", task.getTaskId(), e);
                         return null;
@@ -386,22 +399,17 @@ public class TaskService {
 
         /**
          * TaskData에서 goalsId 추출
-         * - 목표 있음: weekGoal → goal → goalsId
-         * - 목표 없음: null (호출하는 쪽에서 0으로 변환하여 전송)
          */
         private Long extractGoalsId(TaskData task) {
                 try {
                         if (task.getWeekGoal() != null) {
-                                // LAZY 로딩 강제 실행
                                 WeekGoalData weekGoal = task.getWeekGoal();
                                 if (weekGoal.getGoal() != null) {
                                         return weekGoal.getGoal().getGoalsId();
                                 }
-                                log.warn("[TaskService] extractGoalsId: weekGoal exists but goal is null, taskId={}",
-                                        task.getTaskId());
                                 return null;
                         }
-                        return null; // 목표 없음 할 일
+                        return null;
                 } catch (Exception e) {
                         log.error("[TaskService] extractGoalsId failed: taskId={}", task.getTaskId(), e);
                         return null;
