@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package com.planit.grpc.user;
+
+option java_package = "com.planit.grpc.user";
+option java_outer_classname = "UserServiceProto";
+option java_multiple_files = true;
+
+// User Service에서 구현하는 gRPC 서비스 정의
+service UserService {
+
+  // 두 사용자가 친구 관계인지 확인
+  rpc CheckFriendship (CheckFriendshipRequest) returns (CheckFriendshipResponse);
+}
+
+message CheckFriendshipRequest {
+  string user_id = 1;
+  string friend_user_id = 2;
+}
+
+message CheckFriendshipResponse {
+  bool is_friend = 1;
+}
