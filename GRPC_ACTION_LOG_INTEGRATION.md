@@ -47,7 +47,7 @@ Schedule Service에서 사용자가 할 일을 완료/미루기/삭제할 때, I
 
 ### 4. gRPC 클라이언트 설정
 - `src/main/resources/application.yml`
-- Insight Service 주소: `localhost:9092` (기본값)
+- Insight Service 주소: `localhost:9094` (기본값)
 - 타임아웃: 3초
 
 ## 🔧 TaskService 통합 예시
@@ -215,7 +215,7 @@ private Long extractGoalsId(TaskData task) {
    - `user_action_logs` 테이블에 INSERT
 
 3. **gRPC Server 설정**
-   - `application.yml`에 gRPC 서버 포트 9092 설정
+   - `application.yml`에 gRPC 서버 포트 9094 설정
    - `@GrpcService` 어노테이션으로 서비스 등록
 
 4. **테스트**

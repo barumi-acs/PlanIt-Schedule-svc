@@ -181,7 +181,7 @@ public class ActionLogServiceImpl extends ActionLogServiceGrpc.ActionLogServiceI
 ```yaml
 grpc:
   server:
-    port: ${GRPC_SERVER_PORT:9092}
+    port: ${GRPC_SERVER_PORT:9094}
 ```
 
 #### 2-6. 빌드 및 실행
@@ -194,7 +194,7 @@ cd PlanIt-Insight-svc
 **예상 로그**:
 ```
 Started PlanItInsightServiceApplication in 4.123 seconds
-gRPC Server started, listening on port 9092
+gRPC Server started, listening on port 9094
 ```
 
 ### 3단계: 통합 테스트 🧪
@@ -204,7 +204,7 @@ gRPC Server started, listening on port 9092
 # Terminal 1: Insight Service
 cd PlanIt-Insight-svc
 ./gradlew bootRun
-# 포트: HTTP 8085, gRPC 9092
+# 포트: HTTP 8085, gRPC 9094
 
 # Terminal 2: Schedule Service
 cd PlanIt-Schedule-svc
@@ -235,7 +235,7 @@ curl -X POST http://localhost:8082/api/v1/tasks/123/complete \
 #### 3-3. DB 확인
 ```sql
 -- Insight Service DB
-USE plainit_db;
+USE planit_insight_db;
 SELECT * FROM user_action_logs ORDER BY created_at DESC LIMIT 10;
 
 -- 예상 결과:
@@ -294,14 +294,14 @@ io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
 ### 포트 충돌
 ```bash
 # Windows
-netstat -ano | findstr :9092
+netstat -ano | findstr :9094
 taskkill /PID <PID> /F
 ```
 
 ### gRPC 연결 실패
 1. Insight Service가 실행 중인지 확인
-2. 포트 9092가 열려있는지 확인
-3. application.yml의 주소 확인: `static://localhost:9092`
+2. 포트 9094가 열려있는지 확인
+3. application.yml의 주소 확인: `static://localhost:9094`
 
 ### DB 연결 실패
 1. MariaDB 실행 확인
