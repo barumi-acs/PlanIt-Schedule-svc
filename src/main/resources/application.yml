@@ -43,14 +43,14 @@ management:
 grpc:
   # Schedule Service 자신의 gRPC 서버 포트 (다른 서비스에서 이 서비스를 호출할 때 사용)
   server:
-    port: ${GRPC_SERVER_PORT:9091}
+    port: ${GRPC_SERVER_PORT:9092}
 
   # 외부 gRPC 서비스 클라이언트 설정
   client:
     # UserServiceGrpcClient의 @GrpcClient("user-service") 와 이름이 일치해야 함
     user-service:
       # User Service의 gRPC 서버 주소 (환경변수로 주입, 기본값: 로컬 테스트용)
-      address: ${USER_SERVICE_GRPC_ADDRESS:static://localhost:9090}
+      address: ${USER_SERVICE_GRPC_ADDRESS:static://localhost:9091}
       negotiation-type: plaintext  # TLS 미사용 (내부 통신)
     
     # UserActionLogGrpcClient의 @GrpcClient("insight-service") 와 이름이 일치해야 함
