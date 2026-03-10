@@ -18,7 +18,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-      ddl-auto: create #update
+      ddl-auto: update #update
     show-sql: true
     defer-datasource-initialization: true  # data.sql을 Hibernate DDL 이후에 실행
 
@@ -60,4 +60,4 @@ grpc:
 
   # stub-mode: true  → UserServiceGrpcClient가 항상 true 반환 (User Service 미연동 개발용)
   # stub-mode: false → 실제 gRPC 호출 (User Service 서버가 떠있어야 함)
-  stub-mode: ${GRPC_STUB_MODE:true}
+  stub-mode: ${GRPC_STUB_MODE:false}
