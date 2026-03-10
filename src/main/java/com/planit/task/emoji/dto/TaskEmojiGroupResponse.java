@@ -17,4 +17,8 @@ public class TaskEmojiGroupResponse {
     private long count;
     /** 내가 이 이모지에 반응했는지 여부 */
     private boolean myReaction;
+    /** 이모지에 반응한 유저 ID 목록 */
+    private java.util.List<String> userIds;
+    /** 이모지에 반응한 유저 닉네임 목록 */
+    private java.util.List<String> nicknames;
 }

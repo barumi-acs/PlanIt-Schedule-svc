@@ -1,11 +1,18 @@
 package com.planit.grpc;
 
 import com.planit.grpc.user.CheckFriendshipRequest;
+import com.planit.grpc.user.GetUserNamesRequest;
+import com.planit.grpc.user.GetUserNamesResponse;
 import com.planit.grpc.user.UserServiceGrpc;
 
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * User Service와의 gRPC 통신 클라이언트
@@ -84,5 +91,38 @@ public class UserServiceGrpcClient {
                 .build();
 
         return userServiceStub.checkFriendship(request).getIsFriend();
+    }
+
+    /**
+     * 여러 사용자의 닉네임을 조회합니다.
+     *
+     * @param userIds 조회할 userId 목록
+     * @return userId -> nickname 맵
+     */
+    public Map<String, String> getUserNames(List<String> userIds) {
+        if (userIds == null || userIds.isEmpty()) {
+            return Collections.emptyMap();
+        }
+
+        if (stubMode) {
+            // 개발용 stub: userId를 닉네임처럼 반환 (User-00000...)
+            return userIds.stream()
+                    .collect(Collectors.toMap(
+                        id -> id, 
+                        id -> id.length() > 6 ? "User-" + id.substring(0, 5) : "User-" + id
+                    ));
+        }
+
+        try {
+            GetUserNamesRequest request = GetUserNamesRequest.newBuilder()
+                    .addAllUserIds(userIds)
+                    .build();
+
+            GetUserNamesResponse response = userServiceStub.getUserNames(request);
+            return response.getUserNamesMap();
+        } catch (Exception e) {
+            System.err.println("[UserServiceGrpcClient] gRPC 호출 오류: " + e.getMessage());
+            throw e; // EmojiService에서 잡아서 처리하도록 던짐
+        }
     }
 }

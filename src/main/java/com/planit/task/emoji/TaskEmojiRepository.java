@@ -17,4 +17,6 @@ public interface TaskEmojiRepository extends JpaRepository<TaskEmojiData, Long> 
 
     // 특정 할 일 + 특정 이모지 + 특정 유저의 반응 단건 조회 (삭제 시 사용)
     Optional<TaskEmojiData> findByTask_TaskIdAndEmoji_EmojiIdAndUserId(Long taskId, Long emojiId, String userId);
+
+    List<TaskEmojiData> findAllByTask_TaskIdAndEmoji_EmojiIdAndUserId(Long taskId, Long emojiId, String userId);
 }
