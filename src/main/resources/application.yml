@@ -21,7 +21,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-      ddl-auto: create #update
+      ddl-auto: update #update
     show-sql: true
     defer-datasource-initialization: true  # data.sql을 Hibernate DDL 이후에 실행
 
