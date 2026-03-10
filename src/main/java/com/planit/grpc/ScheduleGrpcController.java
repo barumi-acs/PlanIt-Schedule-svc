@@ -32,17 +32,18 @@ public class ScheduleGrpcController extends ScheduleServiceGrpc.ScheduleServiceI
 
     @Override
     public void createPlan(CreatePlanRequest request,
-                           StreamObserver<CreatePlanResponse> responseObserver) {
+            StreamObserver<CreatePlanResponse> responseObserver) {
 
         try {
-            log.info("📡 gRPC 요청 수신 - userId: {}, goal: {}", 
-                     request.getUserId(), request.getGoal().getTitle());
+            log.info("📡 gRPC 요청 수신 - userId: {}, goal: {}",
+                    request.getUserId(), request.getGoal().getTitle());
 
-            // ScheduleGrpcService에 처리 위임 (로그 출력만)
-            scheduleGrpcService.createPlan(request);
+            // ScheduleGrpcService에 처리 위임 및 goalId 반환
+            Long goalId = scheduleGrpcService.createPlan(request);
 
             // 성공 응답
             CreatePlanResponse response = CreatePlanResponse.newBuilder()
+                    .setGoalId(goalId)
                     .setSuccess(true)
                     .setMessage("Plan received successfully")
                     .build();
@@ -54,7 +55,7 @@ public class ScheduleGrpcController extends ScheduleServiceGrpc.ScheduleServiceI
 
         } catch (Exception e) {
             log.error("❌ gRPC 요청 처리 실패", e);
-            
+
             // 실패 응답
             CreatePlanResponse response = CreatePlanResponse.newBuilder()
                     .setSuccess(false)

@@ -56,4 +56,6 @@ message CreatePlanResponse {
 
   string message = 2;
 
+  int64 goal_id = 3;
+
 }

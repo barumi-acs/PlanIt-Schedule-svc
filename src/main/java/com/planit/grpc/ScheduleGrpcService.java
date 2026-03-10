@@ -41,7 +41,7 @@ public class ScheduleGrpcService {
      * @param request Strategy Service에서 받은 CreatePlanRequest
      */
     @Transactional
-    public void createPlan(CreatePlanRequest request) {
+    public Long createPlan(CreatePlanRequest request) {
         log.info("📡 Strategy에서 실행 계획 수신 및 저장 시작 - userId: {}", request.getUserId());
 
         // 1. Category 확인 및 생성
@@ -56,7 +56,7 @@ public class ScheduleGrpcService {
         goal = goalRepository.save(goal);
         log.info("🎯 Goal 저장 완료: {}", goal.getGoalsId());
 
-        // 🎯 물리적 정합성 강화: Task를 저장할 때, 인자로 들어온 카테고리보다 
+        // 🎯 물리적 정합성 강화: Task를 저장할 때, 인자로 들어온 카테고리보다
         // 실제 생성된 Goal의 카테고리를 우선 참조하여 유실 방지
         final CategoryData finalCategory = (goal.getCategory() != null) ? goal.getCategory() : category;
 
@@ -80,6 +80,7 @@ public class ScheduleGrpcService {
         }
 
         log.info("✅ 모든 계획 데이터 DB 저장 완료");
+        return goal.getGoalsId();
     }
 
     /**
