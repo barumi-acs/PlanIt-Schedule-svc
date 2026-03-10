@@ -7,6 +7,9 @@ server:
 spring:
   application:
     name: planit-base-service
+
+  config:
+    import: "optional:file:.env[.properties]"
   
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -53,7 +56,7 @@ grpc:
     # UserActionLogGrpcClient의 @GrpcClient("insight-service") 와 이름이 일치해야 함
     insight-service:
       # Insight Service의 gRPC 서버 주소 (환경변수로 주입, 기본값: 로컬 테스트용)
-      address: ${INSIGHT_SERVICE_GRPC_ADDRESS:static://localhost:9092}
+      address: ${INSIGHT_SERVICE_GRPC_ADDRESS:static://localhost:9094}
       negotiation-type: plaintext  # TLS 미사용 (내부 통신)
       # 타임아웃 설정 (행동 로그는 빠르게 처리되어야 함)
       deadline: 3s
