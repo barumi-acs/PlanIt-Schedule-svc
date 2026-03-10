@@ -116,17 +116,24 @@ public class TaskService {
                 int progressRate = totalCount == 0 ? 0 : (completedCount * 100 / totalCount);
 
                 List<DailyTaskItem> items = tasks.stream()
-                                .map(t -> DailyTaskItem.builder()
-                                                .taskId(t.getTaskId())
-                                                .weekGoalsId(t.getWeekGoal() != null ? t.getWeekGoal().getWeekGoalsId()
-                                                                : null)
-                                                .weekGoalsTitle(t.getWeekGoal() != null ? t.getWeekGoal().getTitle()
-                                                                : null)
-                                                .category(t.getCategory().getCategoryList().getName())
-                                                .content(t.getContent())
-                                                .complete(t.isComplete())
-                                                .targetDate(t.getTargetDate())
-                                                .build())
+                                .map(t -> {
+                                        String catName = (t.getCategory() != null && t.getCategory().getCategoryList() != null)
+                                                        ? t.getCategory().getCategoryList().getName() : "기타";
+                                        
+                                        String gTitle = (t.getWeekGoal() != null && t.getWeekGoal().getGoal() != null)
+                                                        ? t.getWeekGoal().getGoal().getTitle() : null;
+
+                                        return DailyTaskItem.builder()
+                                                        .taskId(t.getTaskId())
+                                                        .weekGoalsId(t.getWeekGoal() != null ? t.getWeekGoal().getWeekGoalsId() : null)
+                                                        .weekGoalsTitle(t.getWeekGoal() != null ? t.getWeekGoal().getTitle() : null)
+                                                        .goalTitle(gTitle)
+                                                        .category(catName)
+                                                        .content(t.getContent())
+                                                        .complete(t.isComplete())
+                                                        .targetDate(t.getTargetDate())
+                                                        .build();
+                                })
                                 .collect(Collectors.toList());
 
                 return DailyTaskResponse.builder()
@@ -202,11 +209,21 @@ public class TaskService {
                                                         })
                                                         .collect(Collectors.toList());
 
+                                        String catName = (t.getCategory() != null && t.getCategory().getCategoryList() != null)
+                                                        ? t.getCategory().getCategoryList().getName() : "기타";
+                                        
+                                        String gTitle = (t.getWeekGoal() != null && t.getWeekGoal().getGoal() != null)
+                                                        ? t.getWeekGoal().getGoal().getTitle() : null;
+
                                         return FriendTaskItem.builder()
                                                         .taskId(t.getTaskId())
                                                         .content(t.getContent())
                                                         .complete(t.isComplete())
                                                         .targetDate(t.getTargetDate())
+                                                        .category(catName)
+                                                        .weekGoalsId(t.getWeekGoal() != null ? t.getWeekGoal().getWeekGoalsId() : null)
+                                                        .weekGoalsTitle(t.getWeekGoal() != null ? t.getWeekGoal().getTitle() : null)
+                                                        .goalTitle(gTitle)
                                                         .emojis(emojis)
                                                         .build();
                                 })

@@ -14,9 +14,10 @@ public interface TaskRepository extends JpaRepository<TaskData, Long> {
     // weekGoal로 할 일 조회 (진행률 계산용)
     List<TaskData> findByWeekGoal_WeekGoalsId(Long weekGoalsId);
 
-    // 유저의 특정 날짜 할 일 조회 (카테고리 조인 기반)
+    // 유저의 특정 날짜 할 일 조회 (카테고리 및 카테고리 리스트 페치 조인)
     @Query("SELECT t FROM TaskData t " +
-           "JOIN t.category c " +
+           "JOIN FETCH t.category c " +
+           "JOIN FETCH c.categoryList cl " +
            "WHERE c.userId = :userId AND t.targetDate = :targetDate")
     List<TaskData> findByUserIdAndTargetDate(
             @Param("userId") String userId,

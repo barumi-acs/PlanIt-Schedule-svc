@@ -56,6 +56,10 @@ public class ScheduleGrpcService {
         goal = goalRepository.save(goal);
         log.info("🎯 Goal 저장 완료: {}", goal.getGoalsId());
 
+        // 🎯 물리적 정합성 강화: Task를 저장할 때, 인자로 들어온 카테고리보다 
+        // 실제 생성된 Goal의 카테고리를 우선 참조하여 유실 방지
+        final CategoryData finalCategory = (goal.getCategory() != null) ? goal.getCategory() : category;
+
         // 3. WeekGoal 및 Task 저장
         for (WeekGoal weekGoalDto : request.getGoal().getWeekGoalsList()) {
             WeekGoalData weekGoal = new WeekGoalData();
@@ -70,8 +74,7 @@ public class ScheduleGrpcService {
                 task.setContent(taskDto.getContent());
                 task.setTargetDate(LocalDate.parse(taskDto.getTargetDate()));
                 task.setComplete(false);
-                // 🎯 정규화된 설계 적용: Task는 Category를 직접 가짐 (Category가 userId 보유)
-                task.setCategory(category);
+                task.setCategory(finalCategory); // 🎯 Category가 이미 userId를 가지고 있음
                 taskRepository.save(task);
             }
         }

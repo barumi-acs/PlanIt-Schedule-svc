@@ -14,6 +14,7 @@ import com.planit.goal.dto.UpdateGoalResponse;
 import com.planit.task.TaskData;
 import com.planit.task.TaskRepository;
 import com.planit.weekgoal.WeekGoalRepository;
+import com.planit.weekgoal.WeekGoalData; // 🎯 추가
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -98,33 +99,40 @@ public class GoalService {
         goalRepository.deleteById(id);
     }
 
-    // 4. 목표 단건 조회
+        // 4. 목표 단건 조회
     @Transactional(readOnly = true)
     public GoalDetailResponse getGoal(Long id) {
         GoalData goal = goalRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.S4042));
 
-        List<GoalDetailResponse.WeekGoalSummary> weekGoalList = weekGoalRepository.findByGoal_GoalsId(id)
-                .stream()
-                .map(w -> {
-                    List<TaskData> tasks = taskRepository.findByWeekGoal_WeekGoalsId(w.getWeekGoalsId());
-                    int total = tasks.size();
-                    int completed = (int) tasks.stream().filter(TaskData::isComplete).count();
-                    int wProgressRate = total == 0 ? 0 : (completed * 100 / total);
-                    return GoalDetailResponse.WeekGoalSummary.builder()
-                            .weekGoalsId(w.getWeekGoalsId())
-                            .title(w.getTitle())
-                            .progressRate(wProgressRate)
-                            .createdAt(w.getCreatedAt())
-                            .build();
-                })
-                .collect(Collectors.toList());
+        List<WeekGoalData> weekGoals = weekGoalRepository.findByGoal_GoalsId(id);
+        
+        long totalTasksCount = 0;
+        long completedTasksCount = 0;
 
-        int goalProgressRate = weekGoalList.isEmpty() ? 0
-                : (int) weekGoalList.stream()
-                        .mapToInt(GoalDetailResponse.WeekGoalSummary::getProgressRate)
-                        .average()
-                        .orElse(0);
+        List<GoalDetailResponse.WeekGoalSummary> weekGoalList = new java.util.ArrayList<>();
+        
+        for (WeekGoalData w : weekGoals) {
+            List<TaskData> tasks = taskRepository.findByWeekGoal_WeekGoalsId(w.getWeekGoalsId());
+            int total = tasks.size();
+            int completed = (int) tasks.stream().filter(TaskData::isComplete).count();
+            
+            totalTasksCount += total;
+            completedTasksCount += completed;
+            
+            int wProgressRate = total == 0 ? 0 : (completed * 100 / total);
+            
+            weekGoalList.add(GoalDetailResponse.WeekGoalSummary.builder()
+                    .weekGoalsId(w.getWeekGoalsId())
+                    .title(w.getTitle())
+                    .progressRate(wProgressRate)
+                    .createdAt(w.getCreatedAt())
+                    .build());
+        }
+
+        // 🎯 전체 진행률: (모든 주차의 완료 할 일 총합 / 모든 주차의 전체 할 일 총합) * 100
+        int goalProgressRate = totalTasksCount == 0 ? 0 
+                : (int) (completedTasksCount * 100 / totalTasksCount);
 
         return GoalDetailResponse.builder()
                 .goalsId(goal.getGoalsId())

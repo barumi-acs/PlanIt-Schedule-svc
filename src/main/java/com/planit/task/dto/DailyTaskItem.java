@@ -12,8 +12,10 @@ public class DailyTaskItem {
     private Long taskId;
     private Long weekGoalsId;
     private String weekGoalsTitle;
-    private String category; // 화면 표시용 카테고리
+    private String goalTitle; // 🎯 월간 목표 제목 추가
+    private String category;
     private String content;
     private boolean complete;
     private LocalDate targetDate;
 }
+

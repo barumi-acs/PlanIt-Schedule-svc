@@ -63,11 +63,18 @@ public class TaskController {
         return ResponseEntity.ok(ApiResponse.success(taskService.updateTask(taskId, req)));
     }
 
-    // PATCH /api/v1/schedules/tasks/{taskId}/complete - 할 일 완료 토글
-    @PatchMapping("/{taskId}/complete")
+    // POST /api/v1/schedules/tasks/{taskId}/toggle - 할 일 완료 토글
+    @PostMapping("/{taskId}/toggle")
     public ResponseEntity<ApiResponse<CompleteTaskResponse>> toggleComplete(
             @PathVariable Long taskId) {
         return ResponseEntity.ok(ApiResponse.success(taskService.toggleComplete(taskId)));
+    }
+
+    // POST /api/v1/schedules/tasks/{taskId}/postpone - 할 일 미루기 (targetDate +1일)
+    @PostMapping("/{taskId}/postpone")
+    public ResponseEntity<ApiResponse<PostponeTaskResponse>> postponeTask(
+            @PathVariable Long taskId) {
+        return ResponseEntity.ok(ApiResponse.success(taskService.postponeTask(taskId)));
     }
 
     // DELETE /api/v1/schedules/tasks/{taskId} - 할 일 삭제 (Soft Delete)
@@ -76,13 +83,6 @@ public class TaskController {
             @PathVariable Long taskId) {
         taskService.deleteTask(taskId);
         return ResponseEntity.ok(ApiResponse.success(null));
-    }
-
-    // PATCH /api/v1/schedules/tasks/{taskId}/postpone - 할 일 미루기 (targetDate +1일)
-    @PatchMapping("/{taskId}/postpone")
-    public ResponseEntity<ApiResponse<PostponeTaskResponse>> postponeTask(
-            @PathVariable Long taskId) {
-        return ResponseEntity.ok(ApiResponse.success(taskService.postponeTask(taskId)));
     }
 
     // GET /api/v1/schedules/tasks/{taskId}/emojis - 할 일 이모지 반응 목록 조회 (이모지별 그룹)
