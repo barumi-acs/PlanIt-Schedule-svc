@@ -16,6 +16,7 @@ import com.planit.task.emoji.dto.TaskReactionListResponse;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,28 +29,26 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<ApiResponse<TaskResponse>> createTask(
-            @RequestHeader(name = "X-User-Id", required = false) String userId,
+            @AuthenticationPrincipal String userId,
             @RequestBody CreateTaskRequest req) {
-        String finalUserId = (userId != null) ? userId : "unknown-user";
         if (req.getUserId() == null || req.getUserId().isBlank()) {
-            req.setUserId(finalUserId);
+            req.setUserId(userId);
         }
         return ResponseEntity.ok(ApiResponse.success(taskService.createTask(req)));
     }
 
     @GetMapping("/daily")
     public ResponseEntity<ApiResponse<DailyTaskResponse>> getDailyTasks(
-            @RequestHeader(name = "X-User-Id", required = false) String myUserId,
+            @AuthenticationPrincipal String myUserId,
             @RequestParam(required = false) String targetDate) {
-        String finalUserId = (myUserId != null) ? myUserId : "unknown-user";
-        return ResponseEntity.ok(ApiResponse.success(taskService.getDailyTasks(finalUserId, targetDate)));
+        return ResponseEntity.ok(ApiResponse.success(taskService.getDailyTasks(myUserId, targetDate)));
     }
 
     // GET /api/v1/schedules/tasks/friend/{friendUserId} - 친구의 할 일 조회
     @GetMapping("/friend/{friendUserId}")
     public ResponseEntity<ApiResponse<FriendTaskResponse>> getFriendTasks(
             @PathVariable String friendUserId,
-            @RequestHeader(name = "X-User-Id") String myUserId,
+            @AuthenticationPrincipal String myUserId,
             @RequestParam(required = false) String targetDate) {
         return ResponseEntity.ok(ApiResponse.success(
                 taskService.getFriendTasks(myUserId, friendUserId, targetDate)));
@@ -89,7 +88,7 @@ public class TaskController {
     @GetMapping("/{taskId}/emojis")
     public ResponseEntity<ApiResponse<TaskReactionListResponse>> getTaskReactions(
             @PathVariable Long taskId,
-            @RequestHeader(name = "X-User-Id") String userId) {
+            @AuthenticationPrincipal String userId) {
         return ResponseEntity.ok(ApiResponse.success(emojiService.getReactions(taskId, userId)));
     }
 
@@ -97,7 +96,7 @@ public class TaskController {
     @PostMapping("/{taskId}/emojis")
     public ResponseEntity<ApiResponse<AddEmojiReactionResponse>> addEmojiReaction(
             @PathVariable Long taskId,
-            @RequestHeader(name = "X-User-Id") String userId,
+            @AuthenticationPrincipal String userId,
             @RequestBody AddEmojiReactionRequest req) {
         return ResponseEntity.ok(ApiResponse.success(
                 emojiService.addReaction(taskId, req, userId)));
@@ -108,7 +107,7 @@ public class TaskController {
     public ResponseEntity<ApiResponse<Void>> deleteEmojiReaction(
             @PathVariable Long taskId,
             @PathVariable Long emojiId,
-            @RequestHeader(name = "X-User-Id") String userId) {
+            @AuthenticationPrincipal String userId) {
         emojiService.deleteReaction(taskId, emojiId, userId);
         return ResponseEntity.ok(ApiResponse.success(null));
     }

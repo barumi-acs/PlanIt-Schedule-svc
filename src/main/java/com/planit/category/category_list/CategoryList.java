@@ -19,13 +19,18 @@ public class CategoryList extends BaseTimeEntity {
 
     /**
      * PK: category_list.list_id
-     * - 카테고리 종류의 식별자
+     * - User-svc의 category_id와 동일한 값으로 동기화됨
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "list_id")
     private Long listId;
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    @Column(name = "color_hex", length = 7)
+    private String colorHex;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
 }

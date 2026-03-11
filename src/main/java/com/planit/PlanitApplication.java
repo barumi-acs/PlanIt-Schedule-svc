@@ -9,8 +9,10 @@ package com.planit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableJpaAuditing // 시간 자동화
+@EnableScheduling  // 카테고리 정기 동기화 등 스케줄 작업
 @SpringBootApplication(scanBasePackages = "com.planit") // global, goal, category 등 하위 패키지 전체 스캔
 public class PlanitApplication {
 

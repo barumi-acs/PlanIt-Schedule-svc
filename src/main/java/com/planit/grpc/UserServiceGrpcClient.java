@@ -1,6 +1,9 @@
 package com.planit.grpc;
 
 import com.planit.grpc.user.CheckFriendshipRequest;
+import com.planit.grpc.user.GetCategoriesRequest;
+import com.planit.grpc.user.GetCategoriesResponse;
+import com.planit.grpc.user.CategoryInfo;
 import com.planit.grpc.user.GetUserNamesRequest;
 import com.planit.grpc.user.GetUserNamesResponse;
 import com.planit.grpc.user.UserServiceGrpc;
@@ -123,6 +126,23 @@ public class UserServiceGrpcClient {
         } catch (Exception e) {
             System.err.println("[UserServiceGrpcClient] gRPC 호출 오류: " + e.getMessage());
             throw e; // EmojiService에서 잡아서 처리하도록 던짐
+        }
+    }
+
+    /**
+     * User Service에서 전체 카테고리 목록을 조회합니다.
+     * CategorySyncService에서 동기화 시 호출됩니다.
+     *
+     * @return 카테고리 정보 목록
+     */
+    public List<CategoryInfo> getCategories() {
+        try {
+            GetCategoriesRequest request = GetCategoriesRequest.newBuilder().build();
+            GetCategoriesResponse response = userServiceStub.getCategories(request);
+            return response.getCategoriesList();
+        } catch (Exception e) {
+            System.err.println("[UserServiceGrpcClient] 카테고리 조회 gRPC 오류: " + e.getMessage());
+            throw e;
         }
     }
 }

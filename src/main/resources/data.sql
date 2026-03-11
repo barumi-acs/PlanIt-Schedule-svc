@@ -1,13 +1,5 @@
--- category_list 초기 데이터
-INSERT IGNORE INTO category_list (list_id, name) VALUES
-(1, '직무/커리어'),
-(2, '어학/자격증'),
-(3, '독서/학습'),
-(4, '건강/운동'),
-(5, '재테크/경제'),
-(6, '마인드/루틴'),
-(7, '취미/관계'),
-(8, '기타');
+-- ※ category_list 데이터는 서비스 시작 시 User-svc gRPC를 통해 자동 동기화됩니다.
+-- (CategorySyncService - ApplicationReadyEvent + @Scheduled 매시간 정각)
 
 -- emojis 초기 데이터 (고정 ID로 중복 방지)
 INSERT IGNORE INTO emojis (emoji_id, emoji_char, name) VALUES

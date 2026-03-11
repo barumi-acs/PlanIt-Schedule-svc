@@ -1,8 +1,112 @@
-# 🚀 PlanIt Base Template
+# PlanIt-Schedule-svc
 
-본 레포지토리는 PlanIt MSA 프로젝트의 **공통 기반(Base Template)** 입니다.
-모든 마이크로서비스(User, Schedule 등)는 이 템플릿을 복사하여 개발을 시작합니다. 
-아래의 **[팀원 필수 개발 규칙]** 을 반드시 숙지하고 개발해 주시기 바랍니다.
+PlanIt의 할 일(Task) / 목표(Goal) / 주차별 목표(WeekGoal) 스케줄링을 담당하는 마이크로서비스입니다.  
+유저의 일일 체크복스를 저장하고, 진행률을 계산하며, 애드히 데이터를 Insight-svc에 gRPC로 네쳐줍니다.
+
+---
+
+## 서비스 개요
+
+| 항목 | 내용 |
+|------|------|
+| 역할 | 할 일 / 목표 / 주차 목표 CRUD, 진행률 계산 |
+| HTTP 포트 | **8082** |
+| gRPC 포트 | **9092** |
+| DB | `planit_schedule_db` (MariaDB) |
+| 외부 의존 | MariaDB, User-svc gRPC(9091), Insight-svc gRPC(9094) |
+
+---
+
+## 기술 스택
+
+| 분류 | 기술 |
+|------|------|
+| 언어 / 프레임워크 | Java 17, Spring Boot 3.5 |
+| ORM | Spring Data JPA |
+| DB | MariaDB |
+| gRPC | grpc-spring-boot-starter |
+| 스케줄러 | Spring `@Scheduled` (`@EnableScheduling`) |
+
+---
+
+## 주요 기능
+
+- 날짜별 할 일 CRUD (생성 / 수정 / 삭제 / 완료 토글 / 오늘로 미루기)
+- 월간 목표 생성 및 주차별 목표 등록
+- 목표 전체 / 주차 진행률 계산 (완료 태스크 / 전체 태스크 비율)
+- 이모지 반응 CRUD
+- 친구 피드 조회
+- 애드히 레코드(UserActionLog) Insight-svc에 gRPC로 네쳐줍니다
+- 시작 시 User-svc gRPC 호출하여 8개 카테고리 동기화 (시작 + 매시간)
+
+---
+
+## 실행 전 필요 조건
+
+1. **MariaDB** 실행 중 (`planit_schedule_db` 데이터베이스 생성 필요)
+2. **PlanIt-User-svc** 실행 중 (gRPC 9091 포트 에라 나면 카테고리 동기화 실패, 서버는 정상 기동)
+3. `.env` 파일 설정
+
+---
+
+## 환경 변수 설정
+
+루트에 `.env` 파일 생성:
+
+```env
+# DB
+SPRING_DATASOURCE_URL=jdbc:mariadb://localhost:3306/planit_schedule_db
+SPRING_DATASOURCE_USERNAME=root
+SPRING_DATASOURCE_PASSWORD=root
+
+# JWT (유저 서비스와 동일한 secret 사용)
+JWT_SECRET=planit-user-service-secret-key-change-in-production-please
+
+# gRPC 포트
+GRPC_SERVER_PORT=9092
+GRPC_USER_SERVICE_ADDRESS=static://localhost:9091
+GRPC_INSIGHT_SERVICE_ADDRESS=static://localhost:9094
+```
+
+---
+
+## DB 생성
+
+```sql
+CREATE DATABASE planit_schedule_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+> `ddl-auto: create` 설정으로 테이블이 자동 생성되고, `data.sql`로 글로벌 데이터가 자동 삽입됩니다.  
+> 카테고리는 User-svc gRPC를 통해 실시간 동기화됩니다 (마닥 gRPC 실패 시도 서버 기동에 문제 없음).
+
+---
+
+## 실행 방법
+
+```bash
+./gradlew clean bootRun
+```
+
+서버 기동 후 확인:
+- `http://localhost:8082/api/v1/base/actuator/health`
+
+---
+
+## 주요 API
+
+| 메서드 | 경로 | 설명 |
+|--------|------|------|
+| GET | `/api/v1/schedules/tasks` | 날짜별 할 일 목록 |
+| POST | `/api/v1/schedules/tasks` | 할 일 생성 |
+| PUT | `/api/v1/schedules/tasks/{id}` | 할 일 수정 |
+| DELETE | `/api/v1/schedules/tasks/{id}` | 할 일 삭제 |
+| PATCH | `/api/v1/schedules/tasks/{id}/complete` | 완료 토글 |
+| PATCH | `/api/v1/schedules/tasks/{id}/postpone` | 다음 날로 미루기 |
+| GET | `/api/v1/schedules/goals` | 목표 목록 |
+| POST | `/api/v1/schedules/goals` | 목표 생성 |
+| GET | `/api/v1/schedules/goals/{id}` | 목표 상세 (주차 목표 + 진행률) |
+| POST | `/api/v1/schedules/goals/{id}/week-goals` | 주차 목표 등록 |
+| GET | `/api/v1/schedules/friends/{friendId}/tasks` | 친구 피드 |
 
 ---
 

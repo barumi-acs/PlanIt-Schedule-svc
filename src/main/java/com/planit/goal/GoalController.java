@@ -9,6 +9,7 @@ import com.planit.goal.dto.UpdateGoalResponse;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,19 +24,17 @@ public class GoalController {
     // POST /api/v1/schedules/goals - 목표 생성
     @PostMapping
     public ResponseEntity<ApiResponse<GoalResponse>> createGoal(
-            @RequestHeader(name = "X-User-Id", required = false) String userId,
+            @AuthenticationPrincipal String userId,
             @RequestBody CreateGoalRequest req) {
-        String finalUserId = (userId != null) ? userId : "unknown-user";
-        GoalResponse data = goalService.createGoal(finalUserId, req);
+        GoalResponse data = goalService.createGoal(userId, req);
         return ResponseEntity.ok(ApiResponse.success(data));
     }
 
     // GET /api/v1/schedules/goals - 목표 전체 조회
     @GetMapping
     public ResponseEntity<ApiResponse<List<GoalResponse>>> getGoals(
-            @RequestHeader(name = "X-User-Id", required = false) String userId) {
-        String finalUserId = (userId != null) ? userId : "unknown-user";
-        List<GoalResponse> data = goalService.getGoals(finalUserId);
+            @AuthenticationPrincipal String userId) {
+        List<GoalResponse> data = goalService.getGoals(userId);
         return ResponseEntity.ok(ApiResponse.success(data));
     }
 
