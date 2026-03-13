@@ -17,6 +17,7 @@ import com.planit.weekgoal.WeekGoalRepository;
 import com.planit.weekgoal.WeekGoalData; // 🎯 추가
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GoalService {
@@ -105,6 +107,16 @@ public class GoalService {
         GoalData goal = goalRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.S4042));
 
+        // 🎯 카테고리명 추출
+        String categoryName = null;
+        if (goal.getCategory() != null && goal.getCategory().getCategoryList() != null) {
+            categoryName = goal.getCategory().getCategoryList().getName();
+        }
+        
+        // 🔍 디버깅 로그 추가
+        log.info("Goal 단건 조회 응답 categoryName - goalId: {}, categoryName: {}", 
+                goal.getGoalsId(), categoryName);
+
         List<WeekGoalData> weekGoals = weekGoalRepository.findByGoal_GoalsId(id);
         
         long totalTasksCount = 0;
@@ -136,6 +148,7 @@ public class GoalService {
 
         return GoalDetailResponse.builder()
                 .goalsId(goal.getGoalsId())
+                .categoryName(categoryName) // 🎯 카테고리명 추가
                 .title(goal.getTitle())
                 .startDate(goal.getStartDate())
                 .endDate(goal.getEndDate())
@@ -169,9 +182,20 @@ public class GoalService {
 
     // GoalData → GoalResponse 변환
     private GoalResponse toResponse(GoalData goal) {
+        // 🎯 카테고리명 추출
+        String categoryName = null;
+        if (goal.getCategory() != null && goal.getCategory().getCategoryList() != null) {
+            categoryName = goal.getCategory().getCategoryList().getName();
+        }
+        
+        // 🔍 디버깅 로그 추가
+        log.info("Goal 조회 응답 categoryName - goalId: {}, categoryName: {}", 
+                goal.getGoalsId(), categoryName);
+        
         return GoalResponse.builder()
                 .goalsId(goal.getGoalsId())
                 .categoryId(goal.getCategory() != null ? goal.getCategory().getCategoryId() : null)
+                .categoryName(categoryName) // 🎯 카테고리명 추가
                 .title(goal.getTitle())
                 .startDate(goal.getStartDate())
                 .endDate(goal.getEndDate())

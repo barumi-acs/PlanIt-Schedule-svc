@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 public class GoalDetailResponse {
     private Long goalsId;
+    private String categoryName; // 🎯 카테고리명 추가
     private String title;
     private LocalDate startDate;
     private LocalDate endDate;
