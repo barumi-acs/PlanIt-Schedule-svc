@@ -369,12 +369,19 @@ public class TaskService {
 
         // TaskData → TaskResponse 변환
         private TaskResponse toResponse(TaskData t) {
+                String categoryName = (t.getCategory() != null && t.getCategory().getCategoryList() != null)
+                        ? t.getCategory().getCategoryList().getName() : "기타";
+                
+                // 🔍 디버깅 로그 추가
+                log.info("Task 조회 응답 categoryName - taskId: {}, categoryName: {}", 
+                        t.getTaskId(), categoryName);
+                
                 return TaskResponse.builder()
                                 .taskId(t.getTaskId())
                                 .weekGoalsId(t.getWeekGoal() != null ? t.getWeekGoal().getWeekGoalsId() : null)
                                 .content(t.getContent())
                                 .complete(t.isComplete())
-                                .category(t.getCategory().getCategoryList().getName())
+                                .category(categoryName)
                                 .targetDate(t.getTargetDate())
                                 .createdAt(t.getCreatedAt())
                                 .updatedAt(t.getUpdatedAt())
