@@ -22,7 +22,7 @@ import java.util.Map;
  * <p>
  * <b>테스트 방법:</b>
  * <pre>
- * curl -X POST http://localhost:8082/api/v1/test/grpc/plan \
+ * curl -X POST http://$PLANIT_SCHEDULE_SERVICE_HOST:8082/api/v1/test/grpc/plan \
  *   -H "Content-Type: application/json" \
  *   -d '{
  *     "userId": "test-user-123",

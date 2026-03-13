@@ -13,7 +13,7 @@ spring:
   
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:mariadb://localhost:3306/planit_schedule_db}
+    url: ${PLANIT_SCHEDULE_DB_URL:${SPRING_DATASOURCE_URL:jdbc:mariadb://planit-mariadb:3306/planit_schedule_db}}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:root}
 
@@ -50,13 +50,13 @@ grpc:
     # UserServiceGrpcClient의 @GrpcClient("user-service") 와 이름이 일치해야 함
     user-service:
       # User Service의 gRPC 서버 주소 (환경변수로 주입, 기본값: 로컬 테스트용)
-      address: ${USER_SERVICE_GRPC_ADDRESS:static://localhost:9091}
+      address: ${PLANIT_USER_SERVICE_GRPC_TARGET:${USER_SERVICE_GRPC_ADDRESS:static://planit-user-svc:9091}}
       negotiation-type: plaintext  # TLS 미사용 (내부 통신)
     
     # UserActionLogGrpcClient의 @GrpcClient("insight-service") 와 이름이 일치해야 함
     insight-service:
       # Insight Service의 gRPC 서버 주소 (환경변수로 주입, 기본값: 로컬 테스트용)
-      address: ${INSIGHT_SERVICE_GRPC_ADDRESS:static://localhost:9094}
+      address: ${PLANIT_INSIGHT_SERVICE_GRPC_TARGET:${INSIGHT_SERVICE_GRPC_ADDRESS:static://planit-insight-svc:9094}}
       negotiation-type: plaintext  # TLS 미사용 (내부 통신)
       # 타임아웃 설정 (행동 로그는 빠르게 처리되어야 함)
       deadline: 3s
@@ -72,4 +72,4 @@ jwt:
 
 # CORS 허용 Origin
 cors:
-  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:5173,http://localhost:5174}
+  allowed-origins: ${PLANIT_CORS_ALLOWED_ORIGINS:${CORS_ALLOWED_ORIGINS:https://planit.example.com}}

@@ -1,21 +1,21 @@
-2026-03-11 09:51:24 INFO  [] [main] com.planit.PlanitApplication : Starting PlanitApplication using Java 17.0.16 with PID 63404 (/Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc/build/classes/java/main started by jybill01 in /Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc)
-2026-03-11 09:51:24 INFO  [] [main] com.planit.PlanitApplication : No active profile set, falling back to 1 default profile: "default"
-2026-03-11 09:51:26 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-11 09:51:27 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 393 ms. Found 7 JPA repository interfaces.
-2026-03-11 09:51:27 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8082 (http)
-2026-03-11 09:51:27 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8082"]
-2026-03-11 09:51:27 INFO  [] [main] o.a.catalina.core.StandardService : Starting service [Tomcat]
-2026-03-11 09:51:27 INFO  [] [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.52]
-2026-03-11 09:51:27 INFO  [] [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
-2026-03-11 09:51:27 INFO  [] [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2824 ms
-2026-03-11 09:51:28 INFO  [] [main] o.h.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-03-11 09:51:28 INFO  [] [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 6.6.42.Final
-2026-03-11 09:51:28 INFO  [] [main] o.h.c.i.RegionFactoryInitiator : HHH000026: Second-level cache disabled
-2026-03-11 09:51:28 INFO  [] [main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-11 09:51:28 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
-2026-03-11 09:51:28 INFO  [] [main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@5a537a16
-2026-03-11 09:51:28 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
-2026-03-11 09:51:28 INFO  [] [main] o.hibernate.orm.connections.pooling : HHH10001005: Database info:
+2026-03-13 10:26:24 INFO  [] [main] com.planit.PlanitApplication : Starting PlanitApplication using Java 17.0.16 with PID 31522 (/Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc/build/classes/java/main started by jybill01 in /Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc)
+2026-03-13 10:26:24 INFO  [] [main] com.planit.PlanitApplication : No active profile set, falling back to 1 default profile: "default"
+2026-03-13 10:26:27 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-13 10:26:28 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 539 ms. Found 7 JPA repository interfaces.
+2026-03-13 10:26:31 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8082 (http)
+2026-03-13 10:26:31 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8082"]
+2026-03-13 10:26:32 INFO  [] [main] o.a.catalina.core.StandardService : Starting service [Tomcat]
+2026-03-13 10:26:32 INFO  [] [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.52]
+2026-03-13 10:26:32 INFO  [] [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2026-03-13 10:26:32 INFO  [] [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 7831 ms
+2026-03-13 10:26:33 INFO  [] [main] o.h.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-13 10:26:34 INFO  [] [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 6.6.42.Final
+2026-03-13 10:26:34 INFO  [] [main] o.h.c.i.RegionFactoryInitiator : HHH000026: Second-level cache disabled
+2026-03-13 10:26:34 INFO  [] [main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-13 10:26:34 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2026-03-13 10:26:34 INFO  [] [main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@491cc0eb
+2026-03-13 10:26:34 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
+2026-03-13 10:26:34 INFO  [] [main] o.hibernate.orm.connections.pooling : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 12.2.2
@@ -23,337 +23,45 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-03-11 09:51:29 INFO  [] [main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-11 09:51:29 INFO  [] [main] o.s.o.j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 09:51:30 INFO  [] [main] o.s.d.j.r.query.QueryEnhancerFactory : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-11 09:51:31 INFO  [] [main] n.d.b.g.c.a.GrpcClientAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyChannelFactory + InProcessChannelFactory
-2026-03-11 09:51:31 INFO  [] [main] com.planit.global.AsyncConfig : ActionLog Executor initialized: corePoolSize=2, maxPoolSize=5, queueCapacity=100
-2026-03-11 09:51:31 WARN  [] [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-11 09:51:31 INFO  [] [main] n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
-2026-03-11 09:51:31 INFO  [] [main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/api/v1/base/actuator'
-2026-03-11 09:51:32 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8082"]
-2026-03-11 09:51:32 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8082 (http) with context path '/'
-2026-03-11 09:51:32 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: com.planit.grpc.schedule.ScheduleService, bean: scheduleGrpcController, class: com.planit.grpc.ScheduleGrpcController
-2026-03-11 09:51:32 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl
-2026-03-11 09:51:32 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
-2026-03-11 09:51:32 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9092
-2026-03-11 09:51:32 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 13.392 seconds (process running for 13.918)
-2026-03-11 09:52:06 INFO  [] [http-nio-8082-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-11 09:52:06 INFO  [] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
-2026-03-11 09:52:06 INFO  [] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet : Completed initialization in 5 ms
-2026-03-11 10:25:14 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded POSTPONED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=13, goals=2, from=2026-03-11, to=2026-03-12, logId=1
-2026-03-11 10:25:17 INFO  [69b0c47d315d430b853199c4515df007] [http-nio-8082-exec-2] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=13, userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, goalsId=2, hasWeekGoal=true
-2026-03-11 10:25:17 INFO  [69b0c47d315d430b853199c4515df007] [http-nio-8082-exec-2] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, taskId=13, goalsId=2 (목표 있음)
-2026-03-11 10:25:17 INFO  [] [ActionLog-2] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=13, goals=2, logId=2
-2026-03-11 10:25:17 INFO  [69b0c47d7e5278377e078b01383f2f3d] [http-nio-8082-exec-3] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=14, userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, goalsId=2, hasWeekGoal=true
-2026-03-11 10:25:17 INFO  [69b0c47d7e5278377e078b01383f2f3d] [http-nio-8082-exec-3] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, taskId=14, goalsId=2 (목표 있음)
-2026-03-11 10:25:17 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=14, goals=2, logId=3
-2026-03-11 10:25:20 INFO  [69b0c4804478c0b8f04add10a742eb77] [http-nio-8082-exec-10] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=15, userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, goalsId=2, hasWeekGoal=true
-2026-03-11 10:25:20 INFO  [69b0c4804478c0b8f04add10a742eb77] [http-nio-8082-exec-10] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, taskId=15, goalsId=2 (목표 있음)
-2026-03-11 10:25:20 INFO  [] [ActionLog-2] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=15, goals=2, logId=4
-2026-03-11 10:25:30 INFO  [69b0c48a42f2bc6d9ee83582d279ba3a] [http-nio-8082-exec-7] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=16, userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, goalsId=2, hasWeekGoal=true
-2026-03-11 10:25:30 INFO  [69b0c48a42f2bc6d9ee83582d279ba3a] [http-nio-8082-exec-7] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, taskId=16, goalsId=2 (목표 있음)
-2026-03-11 10:25:30 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=16, goals=2, logId=5
-2026-03-11 10:25:37 INFO  [69b0c491d3892aafc89ba186399f74d5] [http-nio-8082-exec-7] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=17, userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, goalsId=2, hasWeekGoal=true
-2026-03-11 10:25:37 INFO  [69b0c491d3892aafc89ba186399f74d5] [http-nio-8082-exec-7] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, taskId=17, goalsId=2 (목표 있음)
-2026-03-11 10:25:37 INFO  [] [ActionLog-2] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=17, goals=2, logId=6
-2026-03-11 10:25:41 INFO  [69b0c49556493a7b2927e22130999bbb] [http-nio-8082-exec-3] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=18, userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, goalsId=2, hasWeekGoal=true
-2026-03-11 10:25:41 INFO  [69b0c49556493a7b2927e22130999bbb] [http-nio-8082-exec-3] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, taskId=18, goalsId=2 (목표 있음)
-2026-03-11 10:25:41 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=18, goals=2, logId=7
-2026-03-11 10:36:35 INFO  [69b0c723db666608863992f7d11687ee] [http-nio-8082-exec-2] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=12, userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, goalsId=2, hasWeekGoal=true
-2026-03-11 10:36:35 INFO  [69b0c723db666608863992f7d11687ee] [http-nio-8082-exec-2] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, taskId=12, goalsId=2 (목표 있음)
-2026-03-11 10:36:36 INFO  [] [ActionLog-2] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=12, goals=2, logId=52
-2026-03-11 10:38:07 INFO  [69b0c77fb4a2d147a3d15a1a614a418e] [http-nio-8082-exec-4] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=12, userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, goalsId=2, hasWeekGoal=true
-2026-03-11 10:38:07 INFO  [69b0c77fb4a2d147a3d15a1a614a418e] [http-nio-8082-exec-4] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, taskId=12, goalsId=2 (목표 있음)
-2026-03-11 10:38:07 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=12, goals=2, logId=1
-2026-03-11 10:38:11 INFO  [69b0c783cecb67e08910efa2343a0d3e] [http-nio-8082-exec-10] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=18, userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, goalsId=2, hasWeekGoal=true
-2026-03-11 10:38:11 INFO  [69b0c783cecb67e08910efa2343a0d3e] [http-nio-8082-exec-10] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cd6e6-e85f-7fef-b384-03fc21cb81f9, taskId=18, goalsId=2 (목표 있음)
-2026-03-11 10:38:11 INFO  [] [ActionLog-2] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cd6e6-e85f-7fef-b384-03fc21cb81f9, task=18, goals=2, logId=2
-2026-03-11 11:56:22 INFO  [] [SpringApplicationShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle : Completed gRPC server shutdown
-2026-03-11 11:56:22 INFO  [] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-11 11:56:22 INFO  [] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown : Graceful shutdown complete
-2026-03-11 11:56:22 INFO  [] [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 11:56:22 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown initiated...
-2026-03-11 11:56:22 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown completed.
-2026-03-11 11:57:08 INFO  [] [main] com.planit.PlanitApplication : Starting PlanitApplication using Java 17.0.16 with PID 41095 (/Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc/build/classes/java/main started by jybill01 in /Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc)
-2026-03-11 11:57:08 INFO  [] [main] com.planit.PlanitApplication : No active profile set, falling back to 1 default profile: "default"
-2026-03-11 11:57:10 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-11 11:57:10 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 7 JPA repository interfaces.
-2026-03-11 11:57:12 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8082 (http)
-2026-03-11 11:57:12 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8082"]
-2026-03-11 11:57:12 INFO  [] [main] o.a.catalina.core.StandardService : Starting service [Tomcat]
-2026-03-11 11:57:12 INFO  [] [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.52]
-2026-03-11 11:57:12 INFO  [] [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
-2026-03-11 11:57:12 INFO  [] [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3195 ms
-2026-03-11 11:57:13 INFO  [] [main] o.h.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-03-11 11:57:13 INFO  [] [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 6.6.42.Final
-2026-03-11 11:57:13 INFO  [] [main] o.h.c.i.RegionFactoryInitiator : HHH000026: Second-level cache disabled
-2026-03-11 11:57:14 INFO  [] [main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-11 11:57:14 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
-2026-03-11 11:57:14 INFO  [] [main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@40fee459
-2026-03-11 11:57:14 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
-2026-03-11 11:57:14 INFO  [] [main] o.hibernate.orm.connections.pooling : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 12.2.2
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-11 11:57:14 INFO  [] [main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-11 11:57:14 INFO  [] [main] o.s.o.j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 11:57:14 INFO  [] [main] o.s.d.j.r.query.QueryEnhancerFactory : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-11 11:57:15 INFO  [] [main] n.d.b.g.c.a.GrpcClientAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyChannelFactory + InProcessChannelFactory
-2026-03-11 11:57:15 WARN  [] [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-11 11:57:15 INFO  [] [main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/api/v1/base/actuator'
-2026-03-11 11:57:15 WARN  [] [main] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration : 
+2026-03-13 10:26:36 INFO  [] [main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-13 10:26:38 INFO  [] [main] o.s.o.j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13 10:26:38 INFO  [] [main] n.d.b.g.c.a.GrpcClientAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyChannelFactory + InProcessChannelFactory
+2026-03-13 10:26:38 INFO  [] [main] o.s.d.j.r.query.QueryEnhancerFactory : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-13 10:26:39 WARN  [] [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-13 10:26:39 INFO  [] [main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/api/v1/base/actuator'
+2026-03-13 10:26:39 WARN  [] [main] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: fe171f25-3380-484d-be4c-dc62052730c0
+Using generated security password: 9cd1ba53-970c-4c2e-b813-de5ea1ae6511
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2026-03-11 11:57:15 INFO  [] [main] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-03-11 11:57:15 INFO  [] [main] com.planit.global.AsyncConfig : ActionLog Executor initialized: corePoolSize=2, maxPoolSize=5, queueCapacity=100
-2026-03-11 11:57:15 INFO  [] [main] n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
-2026-03-11 11:57:16 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8082"]
-2026-03-11 11:57:16 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8082 (http) with context path '/'
-2026-03-11 11:57:16 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: com.planit.grpc.schedule.ScheduleService, bean: scheduleGrpcController, class: com.planit.grpc.ScheduleGrpcController
-2026-03-11 11:57:16 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl
-2026-03-11 11:57:16 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
-2026-03-11 11:57:16 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9092
-2026-03-11 11:57:16 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 8.203 seconds (process running for 9.146)
-2026-03-11 11:57:31 INFO  [] [SpringApplicationShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle : Completed gRPC server shutdown
-2026-03-11 11:57:31 INFO  [] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-11 11:57:31 INFO  [] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown : Graceful shutdown complete
-2026-03-11 11:57:31 INFO  [] [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 11:57:31 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown initiated...
-2026-03-11 11:57:31 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown completed.
-2026-03-11 12:20:20 INFO  [] [main] com.planit.PlanitApplication : Starting PlanitApplication using Java 17.0.16 with PID 47981 (/Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc/build/classes/java/main started by jybill01 in /Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc)
-2026-03-11 12:20:20 INFO  [] [main] com.planit.PlanitApplication : No active profile set, falling back to 1 default profile: "default"
-2026-03-11 12:20:20 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-11 12:20:20 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 7 JPA repository interfaces.
-2026-03-11 12:20:21 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8082 (http)
-2026-03-11 12:20:21 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8082"]
-2026-03-11 12:20:21 INFO  [] [main] o.a.catalina.core.StandardService : Starting service [Tomcat]
-2026-03-11 12:20:21 INFO  [] [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.52]
-2026-03-11 12:20:21 INFO  [] [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
-2026-03-11 12:20:21 INFO  [] [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 782 ms
-2026-03-11 12:20:21 INFO  [] [main] o.h.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-03-11 12:20:21 INFO  [] [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 6.6.42.Final
-2026-03-11 12:20:21 INFO  [] [main] o.h.c.i.RegionFactoryInitiator : HHH000026: Second-level cache disabled
-2026-03-11 12:20:21 INFO  [] [main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-11 12:20:21 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
-2026-03-11 12:20:21 INFO  [] [main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@59282dc6
-2026-03-11 12:20:21 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
-2026-03-11 12:20:21 INFO  [] [main] o.hibernate.orm.connections.pooling : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 12.2.2
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-11 12:20:21 INFO  [] [main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-11 12:20:23 INFO  [] [main] o.s.o.j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 12:20:23 INFO  [] [main] n.d.b.g.c.a.GrpcClientAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyChannelFactory + InProcessChannelFactory
-2026-03-11 12:20:23 INFO  [] [main] o.s.d.j.r.query.QueryEnhancerFactory : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-11 12:20:23 WARN  [] [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-11 12:20:23 INFO  [] [main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/api/v1/base/actuator'
-2026-03-11 12:20:23 WARN  [] [main] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration : 
-
-Using generated security password: 636d3982-af70-41aa-bec3-cb9a22a612c7
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-03-11 12:20:23 INFO  [] [main] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-03-11 12:20:23 INFO  [] [main] com.planit.global.AsyncConfig : ActionLog Executor initialized: corePoolSize=2, maxPoolSize=5, queueCapacity=100
-2026-03-11 12:20:23 INFO  [] [main] n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
-2026-03-11 12:20:23 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8082"]
-2026-03-11 12:20:23 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8082 (http) with context path '/'
-2026-03-11 12:20:23 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: com.planit.grpc.schedule.ScheduleService, bean: scheduleGrpcController, class: com.planit.grpc.ScheduleGrpcController
-2026-03-11 12:20:23 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl
-2026-03-11 12:20:23 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
-2026-03-11 12:20:24 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9092
-2026-03-11 12:20:24 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 4.575 seconds (process running for 4.973)
-2026-03-11 12:20:24 INFO  [] [main] c.p.category.CategorySyncService : 🔄 [CategorySync] 서비스 시작 시 카테고리 동기화 시작...
-2026-03-11 12:20:24 INFO  [] [main] c.p.category.CategorySyncService : ✅ [CategorySync] 카테고리 동기화 완료: 8개
-2026-03-11 12:21:45 INFO  [] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-11 12:21:45 INFO  [] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
-2026-03-11 12:21:45 INFO  [] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet : Completed initialization in 13 ms
-2026-03-11 12:21:46 WARN  [69b0dfc945360da96fa9824d7bb64d1b] [http-nio-8082-exec-4] com.planit.security.JwtProvider : JWT token expired: JWT expired 8080060 milliseconds ago at 2026-03-11T01:07:06.000Z. Current time: 2026-03-11T03:21:46.060Z. Allowed clock skew: 0 milliseconds.
-2026-03-11 12:21:46 WARN  [69b0dfc9d5d4e22a7876bf516c4e6175] [http-nio-8082-exec-3] com.planit.security.JwtProvider : JWT token expired: JWT expired 8080060 milliseconds ago at 2026-03-11T01:07:06.000Z. Current time: 2026-03-11T03:21:46.060Z. Allowed clock skew: 0 milliseconds.
-2026-03-11 12:26:23 INFO  [] [grpc-default-executor-2] c.planit.grpc.ScheduleGrpcController : 📡 gRPC 요청 수신 - userId: 019cdaed-d5d5-7f7f-bbee-58c66104d13e, goal: 밥 열심히 먹기
-2026-03-11 12:26:23 INFO  [] [grpc-default-executor-2] com.planit.grpc.ScheduleGrpcService : 📡 Strategy에서 실행 계획 수신 및 저장 시작 - userId: 019cdaed-d5d5-7f7f-bbee-58c66104d13e
-2026-03-11 12:26:23 INFO  [] [grpc-default-executor-2] com.planit.grpc.ScheduleGrpcService : 📂 유저(019cdaed-d5d5-7f7f-bbee-58c66104d13e)의 새로운 카테고리 '기타' 생성
-2026-03-11 12:26:23 INFO  [] [grpc-default-executor-2] com.planit.grpc.ScheduleGrpcService : 🎯 Goal 저장 완료: 1
-2026-03-11 12:26:23 INFO  [] [grpc-default-executor-2] com.planit.grpc.ScheduleGrpcService :   📌 WeekGoal 저장 완료: 1
-2026-03-11 12:26:23 INFO  [] [grpc-default-executor-2] com.planit.grpc.ScheduleGrpcService : ✅ 모든 계획 데이터 DB 저장 완료
-2026-03-11 12:26:23 INFO  [] [grpc-default-executor-2] c.planit.grpc.ScheduleGrpcController : ✅ gRPC 응답 완료 - success: true
-2026-03-11 12:26:37 INFO  [69b0e0ed7077c24c0020c33da02438b3] [http-nio-8082-exec-1] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=1, userId=019cdaed-d5d5-7f7f-bbee-58c66104d13e, goalsId=1, hasWeekGoal=true
-2026-03-11 12:26:37 INFO  [69b0e0ed7077c24c0020c33da02438b3] [http-nio-8082-exec-1] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cdaed-d5d5-7f7f-bbee-58c66104d13e, taskId=1, goalsId=1 (목표 있음)
-2026-03-11 12:26:37 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cdaed-d5d5-7f7f-bbee-58c66104d13e, task=1, goals=1, logId=1
-2026-03-11 12:26:47 INFO  [69b0e0f7f18b501611f8454303c93028] [http-nio-8082-exec-5] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=2, userId=019cdaed-d5d5-7f7f-bbee-58c66104d13e, goalsId=1, hasWeekGoal=true
-2026-03-11 12:26:47 INFO  [69b0e0f7f18b501611f8454303c93028] [http-nio-8082-exec-5] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cdaed-d5d5-7f7f-bbee-58c66104d13e, taskId=2, goalsId=1 (목표 있음)
-2026-03-11 12:26:47 INFO  [] [ActionLog-2] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cdaed-d5d5-7f7f-bbee-58c66104d13e, task=2, goals=1, logId=2
-2026-03-11 12:34:54 INFO  [] [SpringApplicationShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle : Completed gRPC server shutdown
-2026-03-11 12:34:54 INFO  [] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-11 12:34:54 INFO  [] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown : Graceful shutdown complete
-2026-03-11 12:34:54 INFO  [] [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 12:34:54 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown initiated...
-2026-03-11 12:34:54 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown completed.
-2026-03-11 12:35:30 INFO  [] [main] com.planit.PlanitApplication : Starting PlanitApplication using Java 17.0.16 with PID 54077 (/Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc/build/classes/java/main started by jybill01 in /Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc)
-2026-03-11 12:35:30 INFO  [] [main] com.planit.PlanitApplication : No active profile set, falling back to 1 default profile: "default"
-2026-03-11 12:35:30 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-11 12:35:30 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 7 JPA repository interfaces.
-2026-03-11 12:35:31 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8082 (http)
-2026-03-11 12:35:31 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8082"]
-2026-03-11 12:35:31 INFO  [] [main] o.a.catalina.core.StandardService : Starting service [Tomcat]
-2026-03-11 12:35:31 INFO  [] [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.52]
-2026-03-11 12:35:31 INFO  [] [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
-2026-03-11 12:35:31 INFO  [] [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 811 ms
-2026-03-11 12:35:31 INFO  [] [main] o.h.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-03-11 12:35:31 INFO  [] [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 6.6.42.Final
-2026-03-11 12:35:31 INFO  [] [main] o.h.c.i.RegionFactoryInitiator : HHH000026: Second-level cache disabled
-2026-03-11 12:35:31 INFO  [] [main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-11 12:35:31 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
-2026-03-11 12:35:31 INFO  [] [main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@229514ff
-2026-03-11 12:35:31 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
-2026-03-11 12:35:31 INFO  [] [main] o.hibernate.orm.connections.pooling : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 12.2.2
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-11 12:35:31 INFO  [] [main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-11 12:35:32 INFO  [] [main] o.s.o.j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 12:35:32 INFO  [] [main] n.d.b.g.c.a.GrpcClientAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyChannelFactory + InProcessChannelFactory
-2026-03-11 12:35:32 INFO  [] [main] o.s.d.j.r.query.QueryEnhancerFactory : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-11 12:35:33 WARN  [] [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-11 12:35:33 INFO  [] [main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/api/v1/base/actuator'
-2026-03-11 12:35:33 WARN  [] [main] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration : 
-
-Using generated security password: 98749f2b-a473-440a-b361-124d37ba5808
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-03-11 12:35:33 INFO  [] [main] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-03-11 12:35:33 INFO  [] [main] com.planit.global.AsyncConfig : ActionLog Executor initialized: corePoolSize=2, maxPoolSize=5, queueCapacity=100
-2026-03-11 12:35:33 INFO  [] [main] n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
-2026-03-11 12:35:33 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8082"]
-2026-03-11 12:35:33 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8082 (http) with context path '/'
-2026-03-11 12:35:33 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: com.planit.grpc.schedule.ScheduleService, bean: scheduleGrpcController, class: com.planit.grpc.ScheduleGrpcController
-2026-03-11 12:35:33 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl
-2026-03-11 12:35:33 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
-2026-03-11 12:35:33 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9092
-2026-03-11 12:35:33 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 3.956 seconds (process running for 4.269)
-2026-03-11 12:35:33 INFO  [] [main] c.p.category.CategorySyncService : 🔄 [CategorySync] 서비스 시작 시 카테고리 동기화 시작...
-2026-03-11 12:35:33 INFO  [] [main] c.p.category.CategorySyncService : ✅ [CategorySync] 카테고리 동기화 완료: 8개
-2026-03-11 12:37:51 INFO  [] [http-nio-8082-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-11 12:37:51 INFO  [] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
-2026-03-11 12:37:51 INFO  [] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet : Completed initialization in 18 ms
-2026-03-11 12:39:33 INFO  [] [grpc-default-executor-1] c.planit.grpc.ScheduleGrpcController : 📡 gRPC 요청 수신 - userId: 019cdaf8-e6aa-7d70-b50e-e1e48c9586da, goal: 밥 잘먹기
-2026-03-11 12:39:33 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : 📡 Strategy에서 실행 계획 수신 및 저장 시작 - userId: 019cdaf8-e6aa-7d70-b50e-e1e48c9586da
-2026-03-11 12:39:33 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : 📂 유저(019cdaf8-e6aa-7d70-b50e-e1e48c9586da)의 새로운 카테고리 '기타' 생성
-2026-03-11 12:39:33 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : 🎯 Goal 저장 완료: 1
-2026-03-11 12:39:33 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService :   📌 WeekGoal 저장 완료: 1
-2026-03-11 12:39:33 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : ✅ 모든 계획 데이터 DB 저장 완료
-2026-03-11 12:39:33 INFO  [] [grpc-default-executor-1] c.planit.grpc.ScheduleGrpcController : ✅ gRPC 응답 완료 - success: true
-2026-03-11 12:39:42 INFO  [69b0e3fe7da7052fdc8cc5d905b64a74] [http-nio-8082-exec-5] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=1, userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, goalsId=1, hasWeekGoal=true
-2026-03-11 12:39:42 INFO  [69b0e3fe7da7052fdc8cc5d905b64a74] [http-nio-8082-exec-5] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, taskId=1, goalsId=1 (목표 있음)
-2026-03-11 12:39:42 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, task=1, goals=1, logId=1
-2026-03-11 12:39:50 INFO  [69b0e406081b7151288b13ace9eb4b4d] [http-nio-8082-exec-2] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=2, userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, goalsId=1, hasWeekGoal=true
-2026-03-11 12:39:50 INFO  [69b0e406081b7151288b13ace9eb4b4d] [http-nio-8082-exec-2] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, taskId=2, goalsId=1 (목표 있음)
-2026-03-11 12:39:50 INFO  [] [ActionLog-2] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, task=2, goals=1, logId=2
-2026-03-11 12:39:58 INFO  [69b0e40ef11786800b5c099d97fa4515] [http-nio-8082-exec-8] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=3, userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, goalsId=1, hasWeekGoal=true
-2026-03-11 12:39:58 INFO  [69b0e40ef11786800b5c099d97fa4515] [http-nio-8082-exec-8] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, taskId=3, goalsId=1 (목표 있음)
-2026-03-11 12:39:58 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, task=3, goals=1, logId=3
-2026-03-11 12:44:03 INFO  [] [SpringApplicationShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle : Completed gRPC server shutdown
-2026-03-11 12:44:03 INFO  [] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-11 12:44:03 INFO  [] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown : Graceful shutdown complete
-2026-03-11 12:44:03 INFO  [] [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 12:44:03 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown initiated...
-2026-03-11 12:44:03 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown completed.
-2026-03-11 12:44:13 INFO  [] [main] com.planit.PlanitApplication : Starting PlanitApplication using Java 17.0.16 with PID 57159 (/Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc/build/classes/java/main started by jybill01 in /Users/jybill01/Folder/02_Study/03_AWS_Cloud_School/03_Project/03_project/play/PlanIt-Schedule-svc)
-2026-03-11 12:44:13 INFO  [] [main] com.planit.PlanitApplication : No active profile set, falling back to 1 default profile: "default"
-2026-03-11 12:44:14 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-03-11 12:44:14 INFO  [] [main] o.s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 7 JPA repository interfaces.
-2026-03-11 12:44:14 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8082 (http)
-2026-03-11 12:44:14 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8082"]
-2026-03-11 12:44:14 INFO  [] [main] o.a.catalina.core.StandardService : Starting service [Tomcat]
-2026-03-11 12:44:14 INFO  [] [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.52]
-2026-03-11 12:44:14 INFO  [] [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
-2026-03-11 12:44:14 INFO  [] [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 862 ms
-2026-03-11 12:44:14 INFO  [] [main] o.h.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-03-11 12:44:15 INFO  [] [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 6.6.42.Final
-2026-03-11 12:44:15 INFO  [] [main] o.h.c.i.RegionFactoryInitiator : HHH000026: Second-level cache disabled
-2026-03-11 12:44:15 INFO  [] [main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-03-11 12:44:15 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
-2026-03-11 12:44:15 INFO  [] [main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@da9374c
-2026-03-11 12:44:15 INFO  [] [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
-2026-03-11 12:44:15 INFO  [] [main] o.hibernate.orm.connections.pooling : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 12.2.2
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-03-11 12:44:15 INFO  [] [main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-03-11 12:44:16 INFO  [] [main] o.s.o.j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 12:44:16 INFO  [] [main] n.d.b.g.c.a.GrpcClientAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyChannelFactory + InProcessChannelFactory
-2026-03-11 12:44:16 INFO  [] [main] o.s.d.j.r.query.QueryEnhancerFactory : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-03-11 12:44:17 WARN  [] [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-03-11 12:44:17 INFO  [] [main] o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/api/v1/base/actuator'
-2026-03-11 12:44:17 WARN  [] [main] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration : 
-
-Using generated security password: 444c0908-9c07-46a0-9996-575eb5b50399
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-03-11 12:44:17 INFO  [] [main] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-03-11 12:44:17 INFO  [] [main] com.planit.global.AsyncConfig : ActionLog Executor initialized: corePoolSize=2, maxPoolSize=5, queueCapacity=100
-2026-03-11 12:44:17 INFO  [] [main] n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
-2026-03-11 12:44:17 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8082"]
-2026-03-11 12:44:17 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8082 (http) with context path '/'
-2026-03-11 12:44:17 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: com.planit.grpc.schedule.ScheduleService, bean: scheduleGrpcController, class: com.planit.grpc.ScheduleGrpcController
-2026-03-11 12:44:17 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl
-2026-03-11 12:44:17 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
-2026-03-11 12:44:17 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9092
-2026-03-11 12:44:17 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 3.97 seconds (process running for 4.487)
-2026-03-11 12:44:17 INFO  [] [main] c.p.category.CategorySyncService : 🔄 [CategorySync] 서비스 시작 시 카테고리 동기화 시작...
-2026-03-11 12:44:17 INFO  [] [main] c.p.category.CategorySyncService : ✅ [CategorySync] 카테고리 동기화 완료: 8개
-2026-03-11 12:44:22 INFO  [] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-03-11 12:44:22 INFO  [] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
-2026-03-11 12:44:22 INFO  [] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet : Completed initialization in 2 ms
-2026-03-11 12:45:05 INFO  [] [grpc-default-executor-0] c.planit.grpc.ScheduleGrpcController : 📡 gRPC 요청 수신 - userId: 019cdaf8-e6aa-7d70-b50e-e1e48c9586da, goal: 밥 잘먹기
-2026-03-11 12:45:05 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService : 📡 Strategy에서 실행 계획 수신 및 저장 시작 - userId: 019cdaf8-e6aa-7d70-b50e-e1e48c9586da
-2026-03-11 12:45:05 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService : 📂 유저(019cdaf8-e6aa-7d70-b50e-e1e48c9586da)의 새로운 카테고리 '기타' 생성
-2026-03-11 12:45:05 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService : 🎯 Goal 저장 완료: 1
-2026-03-11 12:45:05 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService :   📌 WeekGoal 저장 완료: 1
-2026-03-11 12:45:05 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService : ✅ 모든 계획 데이터 DB 저장 완료
-2026-03-11 12:45:05 INFO  [] [grpc-default-executor-0] c.planit.grpc.ScheduleGrpcController : ✅ gRPC 응답 완료 - success: true
-2026-03-11 12:45:13 INFO  [69b0e5490e7b623c218671a083a69e42] [http-nio-8082-exec-5] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=1, userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, goalsId=1, hasWeekGoal=true
-2026-03-11 12:45:13 INFO  [69b0e5490e7b623c218671a083a69e42] [http-nio-8082-exec-5] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, taskId=1, goalsId=1 (목표 있음)
-2026-03-11 12:45:13 INFO  [] [ActionLog-1] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, task=1, goals=1, logId=4
-2026-03-11 12:45:20 INFO  [69b0e550c0dd2f6dff86decf3fbd17ed] [http-nio-8082-exec-10] com.planit.task.TaskService : [TaskService] toggleComplete: taskId=2, userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, goalsId=1, hasWeekGoal=true
-2026-03-11 12:45:20 INFO  [69b0e550c0dd2f6dff86decf3fbd17ed] [http-nio-8082-exec-10] com.planit.task.TaskService : [TaskService] Sending ActionLog: userId=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, taskId=2, goalsId=1 (목표 있음)
-2026-03-11 12:45:20 INFO  [] [ActionLog-2] c.p.grpc.UserActionLogGrpcClient : [ActionLog] Successfully recorded COMPLETED: user=019cdaf8-e6aa-7d70-b50e-e1e48c9586da, task=2, goals=1, logId=5
-2026-03-11 12:45:45 INFO  [] [grpc-default-executor-0] c.planit.grpc.ScheduleGrpcController : 📡 gRPC 요청 수신 - userId: 019cdaf8-e6aa-7d70-b50e-e1e48c9586da, goal: 잠 잘자기
-2026-03-11 12:45:45 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService : 📡 Strategy에서 실행 계획 수신 및 저장 시작 - userId: 019cdaf8-e6aa-7d70-b50e-e1e48c9586da
-2026-03-11 12:45:45 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService : 🎯 Goal 저장 완료: 2
-2026-03-11 12:45:45 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService :   📌 WeekGoal 저장 완료: 2
-2026-03-11 12:45:45 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService :   📌 WeekGoal 저장 완료: 3
-2026-03-11 12:45:45 INFO  [] [grpc-default-executor-0] com.planit.grpc.ScheduleGrpcService : ✅ 모든 계획 데이터 DB 저장 완료
-2026-03-11 12:45:45 INFO  [] [grpc-default-executor-0] c.planit.grpc.ScheduleGrpcController : ✅ gRPC 응답 완료 - success: true
-2026-03-11 13:00:00 INFO  [69b0e8c05910c81567fe971d24101f50] [scheduling-1] c.p.category.CategorySyncService : 🔄 [CategorySync] 정기 카테고리 동기화 시작...
-2026-03-11 13:00:00 INFO  [69b0e8c05910c81567fe971d24101f50] [scheduling-1] c.p.category.CategorySyncService : ✅ [CategorySync] 카테고리 동기화 완료: 8개
-2026-03-11 14:00:00 INFO  [69b0f6cff76ce1aafa5e3a992e62198e] [scheduling-1] c.p.category.CategorySyncService : 🔄 [CategorySync] 정기 카테고리 동기화 시작...
-2026-03-11 14:00:00 INFO  [69b0f6cff76ce1aafa5e3a992e62198e] [scheduling-1] c.p.category.CategorySyncService : ✅ [CategorySync] 카테고리 동기화 완료: 8개
-2026-03-11 14:01:00 INFO  [] [SpringApplicationShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle : Completed gRPC server shutdown
-2026-03-11 14:01:00 INFO  [] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown : Commencing graceful shutdown. Waiting for active requests to complete
-2026-03-11 14:01:00 INFO  [] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown : Graceful shutdown complete
-2026-03-11 14:01:01 INFO  [] [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-03-11 14:01:01 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown initiated...
-2026-03-11 14:01:01 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown completed.
+2026-03-13 10:26:39 INFO  [] [main] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-13 10:26:39 INFO  [] [main] com.planit.global.AsyncConfig : ActionLog Executor initialized: corePoolSize=2, maxPoolSize=5, queueCapacity=100
+2026-03-13 10:26:39 INFO  [] [main] n.d.b.g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+2026-03-13 10:26:39 INFO  [] [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8082"]
+2026-03-13 10:26:39 INFO  [] [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8082 (http) with context path '/'
+2026-03-13 10:26:39 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: com.planit.grpc.schedule.ScheduleService, bean: scheduleGrpcController, class: com.planit.grpc.ScheduleGrpcController
+2026-03-13 10:26:39 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.health.v1.Health, bean: grpcHealthService, class: io.grpc.protobuf.services.HealthServiceImpl
+2026-03-13 10:26:39 INFO  [] [main] n.d.b.g.s.s.AbstractGrpcServerFactory : Registered gRPC service: grpc.reflection.v1alpha.ServerReflection, bean: protoReflectionService, class: io.grpc.protobuf.services.ProtoReflectionService
+2026-03-13 10:26:39 INFO  [] [main] n.d.b.g.s.s.GrpcServerLifecycle : gRPC Server started, listening on address: *, port: 9092
+2026-03-13 10:26:40 INFO  [] [main] com.planit.PlanitApplication : Started PlanitApplication in 16.802 seconds (process running for 17.04)
+2026-03-13 10:26:40 INFO  [] [main] c.p.category.CategorySyncService : 🔄 [CategorySync] 서비스 시작 시 카테고리 동기화 시작...
+2026-03-13 10:26:40 INFO  [] [main] c.p.category.CategorySyncService : ✅ [CategorySync] 카테고리 동기화 완료: 8개
+2026-03-13 10:27:36 INFO  [] [http-nio-8082-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-13 10:27:36 INFO  [] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2026-03-13 10:27:36 INFO  [] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2026-03-13 10:29:27 INFO  [] [grpc-default-executor-1] c.planit.grpc.ScheduleGrpcController : 📡 gRPC 요청 수신 - userId: 019ce4ce-5c55-769d-acbe-c59a17e5df2c, goal: 밥 잘먹기
+2026-03-13 10:29:27 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : 📡 Strategy에서 실행 계획 수신 및 저장 시작 - userId: 019ce4ce-5c55-769d-acbe-c59a17e5df2c
+2026-03-13 10:29:27 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : 📂 유저(019ce4ce-5c55-769d-acbe-c59a17e5df2c)의 새로운 카테고리 '건강/운동' 생성
+2026-03-13 10:29:28 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : 🎯 Goal 저장 완료: 1
+2026-03-13 10:29:28 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService :   📌 WeekGoal 저장 완료: 1
+2026-03-13 10:29:28 INFO  [] [grpc-default-executor-1] com.planit.grpc.ScheduleGrpcService : ✅ 모든 계획 데이터 DB 저장 완료
+2026-03-13 10:29:28 INFO  [] [grpc-default-executor-1] c.planit.grpc.ScheduleGrpcController : ✅ gRPC 응답 완료 - success: true
+2026-03-13 10:29:30 INFO  [69b3687a36c298ce4baf774358a28b98] [http-nio-8082-exec-2] com.planit.goal.GoalService : Goal 조회 응답 categoryName - goalId: 1, categoryName: 건강/운동
+2026-03-13 10:29:30 INFO  [69b3687a451f94f0cc2b875ec2541027] [http-nio-8082-exec-5] com.planit.goal.GoalService : Goal 단건 조회 응답 categoryName - goalId: 1, categoryName: 건강/운동
+2026-03-13 10:34:41 INFO  [] [SpringApplicationShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle : Completed gRPC server shutdown
+2026-03-13 10:34:41 INFO  [] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-13 10:34:41 INFO  [] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown : Graceful shutdown complete
+2026-03-13 10:34:41 INFO  [] [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13 10:34:41 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown initiated...
+2026-03-13 10:34:41 INFO  [] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Shutdown completed.
