@@ -1,25 +1,18 @@
-FROM --platform=linux/amd64 gradle:8.5-jdk17-alpine AS builder
+FROM gradle:8.5-jdk17 AS builder
 WORKDIR /app
 
 COPY . .
 
-RUN ./gradlew clean build -x test
-
-RUN jlink \
-    --add-modules java.base,java.sql,java.naming,java.desktop,java.management,java.security.jgss,java.instrument,jdk.unsupported,java.prefs,java.xml \
-    --compress=2 \
-    --no-header-files \
-    --no-man-pages \
-    --output /custom-jre
+RUN ./gradlew clean build -x test --no-daemon
 
 # ---------------------------------------------------
 
-FROM --platform=linux/amd64 alpine:latest
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-COPY --from=builder /custom-jre /custom-jre
-ENV PATH="/custom-jre/bin:$PATH"
 
 COPY --from=builder /app/build/libs/*-SNAPSHOT.jar app.jar
+
+EXPOSE 8082 9092
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
