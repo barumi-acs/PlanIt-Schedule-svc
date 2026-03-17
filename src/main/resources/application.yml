@@ -72,4 +72,4 @@ jwt:
 
 # CORS 허용 Origin
 cors:
-  allowed-origins: ${PLANIT_CORS_ALLOWED_ORIGINS:${CORS_ALLOWED_ORIGINS:https://planit.example.com}}
+  allowed-origins: ${PLANIT_CORS_ALLOWED_ORIGINS:${CORS_ALLOWED_ORIGINS:https://barumi-planit.store}}
