@@ -35,7 +35,7 @@ RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # non-root user 생성 (보안)
-RUN addgroup -S spring && adduser -S spring -G spring
+RUN groupadd -r spring && useradd -r -g spring spring
 USER spring:spring
 
 # jar 복사
