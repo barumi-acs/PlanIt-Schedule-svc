@@ -1,7 +1,7 @@
 # =========================
 # 1️⃣ Build Stage
 # =========================
-FROM eclipse-temurin:17-jdk-alpine AS builder
+FROM eclipse-temurin:17-jdk AS builder
 
 WORKDIR /app
 
@@ -14,29 +14,25 @@ COPY settings.gradle .
 # 소스 복사
 COPY src src
 
-# CRLF → LF 변환 (맥/윈도우 호환)
-RUN apk add --no-cache dos2unix && dos2unix gradlew
-
 # 실행 권한 부여
 RUN chmod +x gradlew
 
 # 빌드 (테스트 제외)
-RUN ./gradlew clean bootJar -x test --stacktrace --info --no-daemon
+RUN ./gradlew clean bootJar -x test --no-daemon
 
 # =========================
 # 2️⃣ Runtime Stage
 # =========================
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
 # 타임존 설정 (로그 시간 맞추기)
-RUN apk add --no-cache tzdata && \
-    cp /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
+RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
     echo "Asia/Seoul" > /etc/timezone
 
 # curl 설치 (디버깅용)
-RUN apk add --no-cache curl
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # non-root user 생성 (보안)
 RUN addgroup -S spring && adduser -S spring -G spring
