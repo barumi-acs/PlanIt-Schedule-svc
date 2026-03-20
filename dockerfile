@@ -21,7 +21,7 @@ RUN apk add --no-cache dos2unix && dos2unix gradlew
 RUN chmod +x gradlew
 
 # 빌드 (테스트 제외)
-RUN ./gradlew clean bootJar -x test
+RUN ./gradlew clean bootJar -x test --stacktrace --info --no-daemon
 
 # =========================
 # 2️⃣ Runtime Stage
