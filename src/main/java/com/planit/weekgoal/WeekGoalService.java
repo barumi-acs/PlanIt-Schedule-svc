@@ -13,12 +13,14 @@ import com.planit.weekgoal.dto.WeekGoalListItem;
 import com.planit.weekgoal.dto.WeekGoalResponse;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class WeekGoalService {
@@ -30,11 +32,16 @@ public class WeekGoalService {
     // 1. 주간 목표 생성
     @Transactional
     public WeekGoalResponse createWeekGoal(Long goalsId, CreateWeekGoalRequest req) {
+        log.debug("[Schedule-Service] 주간 목표 생성 시작 | goalsId={}", goalsId);
         // 부모 목표 존재 여부 확인
         GoalData goalData = goalRepository.findById(goalsId)
-                .orElseThrow(() -> new CustomException(ErrorCode.S4042));
+                .orElseThrow(() -> {
+                    log.warn("[Schedule-Service] 주간 목표 생성 실패 - 부모 목표 없음 | goalsId={}", goalsId);
+                    return new CustomException(ErrorCode.S4042);
+                });
 
         if (req.getTitle() == null || req.getTitle().isBlank()) {
+            log.warn("[Schedule-Service] 주간 목표 생성 실패 - 제목 없음 | goalsId={}", goalsId);
             throw new CustomException(ErrorCode.C4001);
         }
 
@@ -42,6 +49,7 @@ public class WeekGoalService {
         weekGoal.setGoal(goalData);
         weekGoal.setTitle(req.getTitle());
         WeekGoalData saved = weekGoalRepository.save(weekGoal);
+        log.info("[Schedule-Service] 주간 목표 생성 완료 | weekGoalsId={}, goalsId={}", saved.getWeekGoalsId(), goalsId);
 
         return toResponse(saved);
     }
@@ -49,30 +57,45 @@ public class WeekGoalService {
     // 2. 주간 목표 목록 조회
     @Transactional(readOnly = true)
     public List<WeekGoalListItem> getWeekGoals(Long goalsId) {
+        log.debug("[Schedule-Service] 주간 목표 목록 조회 시작 | goalsId={}", goalsId);
         // 부모 목표 존재 여부 확인
         goalRepository.findById(goalsId)
-                .orElseThrow(() -> new CustomException(ErrorCode.S4042));
+                .orElseThrow(() -> {
+                    log.warn("[Schedule-Service] 주간 목표 조회 실패 - 부모 목표 없음 | goalsId={}", goalsId);
+                    return new CustomException(ErrorCode.S4042);
+                });
 
-        return weekGoalRepository.findByGoal_GoalsId(goalsId)
+        List<WeekGoalListItem> result = weekGoalRepository.findByGoal_GoalsId(goalsId)
                 .stream()
                 .map(this::toListItem)
                 .collect(Collectors.toList());
+        log.info("[Schedule-Service] 주간 목표 목록 조회 완료 | goalsId={}, count={}", goalsId, result.size());
+        return result;
     }
 
     // 3. 주간 목표 수정
     @Transactional
     public UpdateWeekGoalResponse updateWeekGoal(Long goalsId, Long weekGoalsId, UpdateWeekGoalRequest req) {
+        log.debug("[Schedule-Service] 주간 목표 수정 시작 | goalsId={}, weekGoalsId={}", goalsId, weekGoalsId);
         goalRepository.findById(goalsId)
-                .orElseThrow(() -> new CustomException(ErrorCode.S4042));
+                .orElseThrow(() -> {
+                    log.warn("[Schedule-Service] 주간 목표 수정 실패 - 부모 목표 없음 | goalsId={}", goalsId);
+                    return new CustomException(ErrorCode.S4042);
+                });
 
         WeekGoalData weekGoal = weekGoalRepository.findById(weekGoalsId)
-                .orElseThrow(() -> new CustomException(ErrorCode.S4042));
+                .orElseThrow(() -> {
+                    log.warn("[Schedule-Service] 주간 목표 수정 실패 - 주간 목표 없음 | weekGoalsId={}", weekGoalsId);
+                    return new CustomException(ErrorCode.S4042);
+                });
 
         if (req.getTitle() == null || req.getTitle().isBlank()) {
+            log.warn("[Schedule-Service] 주간 목표 수정 실패 - 제목 없음 | weekGoalsId={}", weekGoalsId);
             throw new CustomException(ErrorCode.C4001);
         }
 
         weekGoal.setTitle(req.getTitle());
+        log.info("[Schedule-Service] 주간 목표 수정 완료 | weekGoalsId={}", weekGoalsId);
         // dirty checking → 트랜잭션 커밋 시 JPA가 자동 UPDATE
         return UpdateWeekGoalResponse.builder()
                 .weekGoalsId(weekGoal.getWeekGoalsId())
@@ -84,14 +107,22 @@ public class WeekGoalService {
     // 4. 주간 목표 삭제 (Soft Delete)
     @Transactional
     public void deleteWeekGoal(Long goalsId, Long weekGoalsId) {
+        log.debug("[Schedule-Service] 주간 목표 삭제 시작 | goalsId={}, weekGoalsId={}", goalsId, weekGoalsId);
         goalRepository.findById(goalsId)
-                .orElseThrow(() -> new CustomException(ErrorCode.S4042));
+                .orElseThrow(() -> {
+                    log.warn("[Schedule-Service] 주간 목표 삭제 실패 - 부모 목표 없음 | goalsId={}", goalsId);
+                    return new CustomException(ErrorCode.S4042);
+                });
 
         weekGoalRepository.findById(weekGoalsId)
-                .orElseThrow(() -> new CustomException(ErrorCode.S4042));
+                .orElseThrow(() -> {
+                    log.warn("[Schedule-Service] 주간 목표 삭제 실패 - 주간 목표 없음 | weekGoalsId={}", weekGoalsId);
+                    return new CustomException(ErrorCode.S4042);
+                });
 
         weekGoalRepository.deleteById(weekGoalsId); // @SQLDelete 작동 → UPDATE week_goals SET deleted_at = ... WHERE
                                                     // week_goals_id = ?
+        log.info("[Schedule-Service] 주간 목표 삭제 완료 | weekGoalsId={}", weekGoalsId);
     }
 
     // WeekGoalData → WeekGoalResponse

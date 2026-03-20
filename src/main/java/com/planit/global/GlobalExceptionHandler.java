@@ -5,8 +5,7 @@
  */
 package com.planit.global;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,15 +13,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 
+import static net.logstash.logback.argument.StructuredArguments.kv;
+
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // 파라미터 검증 실패 예외 처리 (400)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Void>> handleValidationException(MethodArgumentNotValidException e) {
         String errorMessage = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+        log.warn("요청 파라미터 검증 실패", kv("message", errorMessage));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ApiResponse.<Void>builder()
                         .code(ErrorCode.C4001.getCode())
@@ -35,6 +36,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ApiResponse<Void>> handleCustomException(CustomException e) {
         HttpStatus status = resolveHttpStatus(e.getErrorCode());
+        log.warn("비즈니스 예외 발생", 
+                kv("code", e.getErrorCode().getCode()), 
+                kv("message", e.getErrorCode().getMessage()));
         return ResponseEntity.status(status)
                 .body(ApiResponse.<Void>builder()
                         .code(e.getErrorCode().getCode())
@@ -46,7 +50,7 @@ public class GlobalExceptionHandler {
     // 그 외 모든 예외 처리 (500)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleAllException(Exception e) {
-        log.error("[C5001] Unhandled exception: {}", e.getMessage(), e);
+        log.error("처리되지 않은 예외 발생", kv("message", e.getMessage()), e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ApiResponse.<Void>builder()
                         .code(ErrorCode.C5001.getCode())

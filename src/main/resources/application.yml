@@ -13,7 +13,7 @@ server:
 
 spring:
   application:
-    name: planit-base-service
+    name: schedule-svc
 
   config:
     import: "optional:file:.env[.properties]"
