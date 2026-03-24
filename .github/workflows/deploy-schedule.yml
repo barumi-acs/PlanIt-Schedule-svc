@@ -76,18 +76,14 @@ jobs:
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action Bot"
         
-        git add .
-        git commit -m "chore(schedule-svc): update image to ${{ github.sha }}"
-        git push origin develop
+          git add .
         
-        git add .
-        
-        if git diff --cached --quiet; then
-          echo "No changes to commit"
-        else
-          git commit -m "chore(strategy-svc): update image to ${{ github.sha }}"
-            it push origin develop
-        fi
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(schedule-svc): update image to ${{ github.sha }}"
+            git push origin develop
+          fi
 
     - name: Configure AWS credentials (for notify)
       if: always()
