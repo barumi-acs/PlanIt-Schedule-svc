@@ -1,5 +1,8 @@
 package com.planit.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,24 +44,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        try {
-            String token = extractToken(request);
+        String token = extractToken(request);
 
-            if (token != null && jwtProvider.validateToken(token)) {
-                String userId = jwtProvider.getUserIdFromToken(token);
-                setAuthentication(request, userId);
-                // MDC에 userId 저장 (구조화된 로깅)
-                MDC.put(USER_ID_KEY, userId);
-            } else {
-                // 폴백: JWT 없을 때 X-User-Id 헤더 사용 (내부 서비스 간 gRPC 호출 등)
-                String userIdHeader = request.getHeader("X-User-Id");
-                if (StringUtils.hasText(userIdHeader)) {
-                    setAuthentication(request, userIdHeader);
-                    MDC.put(USER_ID_KEY, userIdHeader);
+        if (token != null) {
+            try {
+                if (jwtProvider.validateToken(token)) {
+                    String userId = jwtProvider.getUserIdFromToken(token);
+                    setAuthentication(request, userId);
+                    // MDC에 userId 저장 (구조화된 로깅)
+                    MDC.put(USER_ID_KEY, userId);
                 }
+            } catch (ExpiredJwtException e) {
+                log.info("JWT token expired from IP: {}", getClientIp(request));
+            } catch (SignatureException | MalformedJwtException e) {
+                log.warn("JWT token invalid or signature mismatch from IP: {}", getClientIp(request));
+            } catch (Exception e) {
+                log.warn("JWT validation failed from IP: {}", getClientIp(request));
             }
-        } catch (Exception e) {
-            log.debug("JWT authentication skipped: {}", e.getMessage());
+        } else {
+            // 폴백: JWT 없을 때 X-User-Id 헤더 사용 (내부 서비스 간 gRPC 호출 등)
+            String userIdHeader = request.getHeader("X-User-Id");
+            if (StringUtils.hasText(userIdHeader)) {
+                setAuthentication(request, userIdHeader);
+                MDC.put(USER_ID_KEY, userIdHeader);
+            }
         }
 
         filterChain.doFilter(request, response);
@@ -77,5 +86,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return bearer.substring(7);
         }
         return null;
+    }
+
+    private String getClientIp(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null || ip.isEmpty()) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 }
